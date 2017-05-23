@@ -1,5 +1,6 @@
 package com.artie.gourmand.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -66,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
                     .detach(profileFragment)
                     .attach(feedFragment)
                     .commit();
+        } else if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(MainActivity.this, TakePhotoActivity.class);
+            startActivity(intent);
         }
+
         return super.onOptionsItemSelected(item);
     }
 }
