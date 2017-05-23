@@ -18,7 +18,9 @@ public class ProfileFragment extends Fragment {
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
         ProfileFragment fragment = new ProfileFragment();
+
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -26,7 +28,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
         initInstances(rootView);
+
         return rootView;
     }
 

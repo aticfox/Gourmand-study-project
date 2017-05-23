@@ -13,6 +13,9 @@ import com.artie.gourmand.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final String FRAGMENT_FEED = "FeedFragment";
+    static final String FRAGMENT_PROFILE = "ProfileFragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             ProfileFragment profileFragment = ProfileFragment.newInstance();
             FeedFragment feedFragment = FeedFragment.newInstance();
+
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer,
                             feedFragment,
-                            "FeedFragment")
+                            FRAGMENT_FEED)
                     .add(R.id.contentContainer,
                             profileFragment,
-                            "ProfileFragment")
+                            FRAGMENT_PROFILE)
                     .detach(profileFragment)
                     .commit();
         }
@@ -43,35 +47,40 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(android.R.drawable.ic_menu_camera);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         ProfileFragment profileFragment = (ProfileFragment) getSupportFragmentManager()
-                .findFragmentByTag("ProfileFragment");
+                .findFragmentByTag(FRAGMENT_PROFILE);
         FeedFragment feedFragment = (FeedFragment) getSupportFragmentManager()
-                .findFragmentByTag("FeedFragment");
+                .findFragmentByTag(FRAGMENT_FEED);
 
-        if(item.getItemId() == R.id.menu_profile) {
-            getSupportFragmentManager().beginTransaction()
-                    .detach(feedFragment)
-                    .attach(profileFragment)
-                    .commit();
-        } else if (item.getItemId() == R.id.menu_feed) {
-            getSupportFragmentManager().beginTransaction()
-                    .detach(profileFragment)
-                    .attach(feedFragment)
-                    .commit();
-        } else if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(MainActivity.this, TakePhotoActivity.class);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.menu_profile:
+               getSupportFragmentManager().beginTransaction()
+                        .detach(feedFragment)
+                        .attach(profileFragment)
+                        .commit();
+                break;
+            case R.id.menu_feed:
+                getSupportFragmentManager().beginTransaction()
+                        .detach(profileFragment)
+                        .attach(feedFragment)
+                        .commit();
+                break;
+            case android.R.id.home:
+                Intent intent = TakePhotoActivity.getStartIntent(MainActivity.this);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }

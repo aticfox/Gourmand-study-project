@@ -16,11 +16,11 @@ import com.artie.gourmand.R;
 public class FeedFragment extends Fragment {
 
     public static FeedFragment newInstance() {
-
         Bundle args = new Bundle();
-
         FeedFragment fragment = new FeedFragment();
+
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -28,7 +28,9 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
+
         initInstances(rootView);
+
         return rootView;
     }
 
