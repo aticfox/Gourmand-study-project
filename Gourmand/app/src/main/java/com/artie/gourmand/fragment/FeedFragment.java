@@ -6,14 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.adapter.FeedAdapter;
 
 /**
  * Created by ANFIELD on 23/5/2560.
  */
 
 public class FeedFragment extends Fragment {
+
+    ListView listView;
 
     public static FeedFragment newInstance() {
         Bundle args = new Bundle();
@@ -35,7 +39,8 @@ public class FeedFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
-
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        listView.setAdapter(new FeedAdapter());
     }
 
 }
