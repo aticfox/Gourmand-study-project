@@ -18,6 +18,7 @@ import com.artie.gourmand.adapter.FeedAdapter;
 public class FeedFragment extends Fragment {
 
     ListView listView;
+    FeedAdapter itemAdapter;
 
     public static FeedFragment newInstance() {
         Bundle args = new Bundle();
@@ -40,7 +41,8 @@ public class FeedFragment extends Fragment {
 
     private void initInstances(View rootView) {
         listView = (ListView) rootView.findViewById(R.id.listView);
-        listView.setAdapter(new FeedAdapter());
+        itemAdapter = new FeedAdapter();
+        listView.setAdapter(itemAdapter);
     }
 
 }

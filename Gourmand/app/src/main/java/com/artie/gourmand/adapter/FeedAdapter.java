@@ -3,7 +3,8 @@ package com.artie.gourmand.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+
+import com.artie.gourmand.view.FeedItem;
 
 /**
  * Created by ANFIELD on 24/5/2560.
@@ -28,17 +29,15 @@ public class FeedAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView view;
+        FeedItem item;
 
         if (convertView == null) {
-            view = new TextView(parent.getContext());
+            item = new FeedItem(parent.getContext());
         } else {
-            view = (TextView) convertView;
+            item = (FeedItem) convertView;
         }
 
-        view.setText(String.format("Post %d", position));
-
-        return view;
+        return item;
     }
 
 }
