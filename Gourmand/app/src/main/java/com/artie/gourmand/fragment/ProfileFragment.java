@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.adapter.GridSquarePhotoAdapter;
+import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 
 /**
  * Created by ANFIELD on 23/5/2560.
@@ -21,6 +22,7 @@ public class ProfileFragment extends Fragment {
     static final int PHOTO_COLUMN = 3;
 
     RecyclerView mRecyclerView;
+    RecyclerViewHeader mRecyclerViewHeader;
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -45,6 +47,9 @@ public class ProfileFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(new GridSquarePhotoAdapter(PHOTO_COLUMN));
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), PHOTO_COLUMN));
+
+        mRecyclerViewHeader = (RecyclerViewHeader) rootView.findViewById(R.id.recycler_header_view);
+        mRecyclerViewHeader.attachTo(mRecyclerView);
     }
 
 }
