@@ -8,6 +8,7 @@ import android.view.View.BaseSavedState;
 /**
  * Created by nuuneoi on 1/9/2016.
  */
+
 public class BundleSavedState extends BaseSavedState {
 
     private Bundle bundle = new Bundle();

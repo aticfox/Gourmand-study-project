@@ -14,6 +14,7 @@ import com.artie.gourmand.view.stat.BundleSavedState;
 /**
  * Created by nuuneoi on 1/9/2016.
  */
+
 public class BaseCustomViewGroup extends FrameLayout {
 
     public BaseCustomViewGroup(Context context) {
