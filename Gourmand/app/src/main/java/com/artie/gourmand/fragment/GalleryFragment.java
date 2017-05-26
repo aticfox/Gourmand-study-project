@@ -1,13 +1,18 @@
 package com.artie.gourmand.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.PostPhotoActivity;
 
 /**
  * Created by ANFIELD on 26/5/2560.
@@ -27,6 +32,8 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        init(savedInstanceState);
     }
 
     @Nullable
@@ -39,8 +46,32 @@ public class GalleryFragment extends Fragment {
         return rootView;
     }
 
+    private void init(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+    }
+
     private void initInstances(View rootView) {
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_gallery, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_next:
+                Intent intent = PostPhotoActivity.getStartIntent(getContext());
+                startActivity(intent);
+                return true;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
