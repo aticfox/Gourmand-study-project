@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.activity.PostPhotoActivity;
+import com.flurgle.camerakit.CameraView;
 
 /**
  * Created by ANFIELD on 26/5/2560.
@@ -19,6 +20,7 @@ import com.artie.gourmand.activity.PostPhotoActivity;
 public class CameraFragment extends Fragment {
 
     Button mButtonTakePhoto;
+    CameraView mCameraView;
 
     public static CameraFragment newInstance() {
         Bundle args = new Bundle();
@@ -51,6 +53,8 @@ public class CameraFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
+        mCameraView = (CameraView) rootView.findViewById(R.id.camera);
+
         mButtonTakePhoto = (Button) rootView.findViewById(R.id.button_take_photo);
         mButtonTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +69,18 @@ public class CameraFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mCameraView.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mCameraView.stop();
     }
 
 }
