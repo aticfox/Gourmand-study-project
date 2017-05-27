@@ -1,5 +1,6 @@
 package com.artie.gourmand.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final String FRAGMENT_FEED = "FeedFragment";
     static final String FRAGMENT_PROFILE = "ProfileFragment";
+
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
