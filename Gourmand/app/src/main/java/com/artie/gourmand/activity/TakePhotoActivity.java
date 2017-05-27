@@ -18,6 +18,10 @@ public class TakePhotoActivity extends AppCompatActivity {
     ViewPager mViewPager;
     TabLayout mTabLayout;
 
+    static final int NUMBER_TAKE_PHOTO_FRAGMENT_PAGE = 2;
+    static final int FRAGMENT_CAMERA = 0;
+    static final int FRAGMENT_GALLERY = 1;
+
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, TakePhotoActivity.class);
         return intent;
@@ -33,40 +37,42 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     private void initInstances() {
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return CameraFragment.newInstance();
-                    case 1:
-                        return GalleryFragment.newInstance();
-                    default:
-                        return null;
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 2;
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                switch (position) {
-                    case 0:
-                        return "Photo";
-                    case 1:
-                        return "Gallery";
-                    default:
-                        return "";
-                }
-            }
-        });
+        mViewPager.setAdapter(fragmentStatePagerAdapter);
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
     }
+
+    FragmentStatePagerAdapter fragmentStatePagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case FRAGMENT_CAMERA:
+                    return CameraFragment.newInstance();
+                case FRAGMENT_GALLERY:
+                    return GalleryFragment.newInstance();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return NUMBER_TAKE_PHOTO_FRAGMENT_PAGE;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case FRAGMENT_CAMERA:
+                    return "Photo";
+                case FRAGMENT_GALLERY:
+                    return "Gallery";
+                default:
+                    return "";
+            }
+        }
+    };
 
 }

@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TakePhotoActivity" />
-        <activity android:name=".activity.PostPhotoActivity"></activity>
+        <activity android:name=".activity.PostPhotoActivity" />
     </application>
 
 </manifest>
