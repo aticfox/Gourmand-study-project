@@ -26,10 +26,10 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Write your caption" />
+                android:hint="Write your caption" />
 
             <TextView
-                android:id="@+id/button_select_location"
+                android:id="@+id/text_view_select_location"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"

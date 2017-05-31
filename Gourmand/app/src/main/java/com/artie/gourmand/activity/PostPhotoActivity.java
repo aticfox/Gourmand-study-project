@@ -13,7 +13,7 @@ import com.artie.gourmand.R;
 
 public class PostPhotoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView mButtonSelectLocation;
+    TextView mTextViewSelectLocation;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, PostPhotoActivity.class);
@@ -28,8 +28,8 @@ public class PostPhotoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initInstance() {
-        mButtonSelectLocation = (TextView) findViewById(R.id.button_select_location);
-        mButtonSelectLocation.setOnClickListener(this);
+        mTextViewSelectLocation = (TextView) findViewById(R.id.text_view_select_location);
+        mTextViewSelectLocation.setOnClickListener(this);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class PostPhotoActivity extends AppCompatActivity implements View.OnClick
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button_select_location:
+            case R.id.text_view_select_location:
                 Intent intent = SelectLocationActivity.getStartIntent(PostPhotoActivity.this);
                 startActivity(intent);
                 break;
