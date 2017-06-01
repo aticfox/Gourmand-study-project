@@ -24,11 +24,12 @@ public class PostPhotoActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_photo);
-        initInstance();
+
+        initInstances();
     }
 
-    private void initInstance() {
-        mTextViewSelectLocation = (TextView) findViewById(R.id.text_view_select_location);
+    private void initInstances() {
+        mTextViewSelectLocation = (TextView) findViewById(R.id.text_select_location);
         mTextViewSelectLocation.setOnClickListener(this);
     }
 
@@ -55,7 +56,7 @@ public class PostPhotoActivity extends AppCompatActivity implements View.OnClick
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.text_view_select_location:
+            case R.id.text_select_location:
                 Intent intent = SelectLocationActivity.getStartIntent(PostPhotoActivity.this);
                 startActivity(intent);
                 break;

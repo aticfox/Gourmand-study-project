@@ -28,12 +28,7 @@ public class SelectLocationActivity extends AppCompatActivity {
 
         initInstances();
 
-        getWindow().setSoftInputMode(
-
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-
-        );
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private void initInstances() {

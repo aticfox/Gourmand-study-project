@@ -14,19 +14,15 @@ import com.artie.gourmand.R;
 
 public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAdapter.ViewHolder> {
 
-
-
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_location, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mPosition.setText("Location name, Position: "+position+""); //ต้องเป็น String
+        holder.mPosition.setText("Location name, Position: "+position); //ต้องเป็น String
     }
 
     @Override
@@ -36,9 +32,11 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mPosition;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            this.mPosition = (TextView) itemView.findViewById(R.id.location_name);
+            this.mPosition = (TextView) itemView.findViewById(R.id.text_location_name);
         }
     }
+
 }
