@@ -35,6 +35,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
+                android:id="@+id/linear_layout_follower"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
@@ -47,13 +48,15 @@
                     android:text="1560" />
 
                 <TextView
+                    android:id="@+id/text_follower"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="follower" />
+                    android:text="@string/follower" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_following"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -67,7 +70,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="following" />
+                    android:text="@string/following" />
 
             </LinearLayout>
 

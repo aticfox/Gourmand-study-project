@@ -19,6 +19,8 @@
         <activity android:name=".activity.TakePhotoActivity" />
         <activity android:name=".activity.PostPhotoActivity" />
         <activity android:name=".activity.SelectLocationActivity" />
+        <activity android:name=".activity.FollowingActivity" />
+        <activity android:name=".activity.FollowerActivity" />
     </application>
 
 </manifest>

@@ -20,9 +20,11 @@ import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 public class ProfileFragment extends Fragment {
 
     static final int PHOTO_COLUMN = 3;
+    static final String FRAGMENT_PROFILE_HEADER = "ProfileHeaderFragment";
 
     RecyclerView mRecyclerView;
     RecyclerViewHeader mRecyclerViewHeader;
+    ProfileHeaderFragment mProfileHeaderView;
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -50,6 +52,13 @@ public class ProfileFragment extends Fragment {
 
         mRecyclerViewHeader = (RecyclerViewHeader) rootView.findViewById(R.id.recycler_header_view);
         mRecyclerViewHeader.attachTo(mRecyclerView);
+
+        mProfileHeaderView = ProfileHeaderFragment.newInstance();
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.content_container_header,
+                        mProfileHeaderView,
+                        FRAGMENT_PROFILE_HEADER)
+                .commit();
     }
 
 }
