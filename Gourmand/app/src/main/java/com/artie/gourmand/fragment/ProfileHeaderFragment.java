@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.activity.FollowerActivity;
+import com.artie.gourmand.activity.FollowingActivity;
 
 /**
  * Created by ANFIELD on 1/6/2560.
@@ -56,13 +57,27 @@ public class ProfileHeaderFragment extends Fragment{
 
 
         linearLayoutFollower.setOnClickListener(followClickListener);
+        linearLayoutFollowing.setOnClickListener(followClickListener);
     }
 
     View.OnClickListener followClickListener = new View.OnClickListener() {
+        Intent intent;
+
         @Override
         public void onClick(View v) {
-            Intent intent = FollowerActivity.getStartIntent(getContext());
-            startActivity(intent);
+            switch (v.getId()) {
+                case R.id.linear_layout_follower:
+                    intent = FollowerActivity.getStartIntent(getContext());
+                    startActivity(intent);
+                    break;
+                case R.id.linear_layout_following:
+                    intent = FollowingActivity.getStartIntent(getContext());
+                    startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
+
         }
     };
 
