@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.fragment.PostFragment;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -18,5 +19,12 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, new PostFragment())
+                    .commit();
+        }
     }
+
 }
