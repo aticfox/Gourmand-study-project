@@ -1,5 +1,6 @@
 package com.artie.gourmand.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,12 @@ import com.artie.gourmand.util.Utils;
 public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhotoAdapter.ViewHolder> {
 
     private int mColumn;
+    private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
-    public GridSquarePhotoAdapter(int column) {
+    public GridSquarePhotoAdapter(Context context, int column, OnItemClickListener itemClickListener) {
+        mContext = context;
+        mOnItemClickListener = itemClickListener;
         mColumn = column;
     }
 
@@ -33,7 +38,7 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.setItemClickListener(mOnItemClickListener);
     }
 
     @Override
@@ -41,12 +46,23 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
         return 100;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private OnItemClickListener mOnItemClickListener;
 
         public ViewHolder(View itemView) {
             super(itemView);
+
+            itemView.findViewById(R.id.view_overlay).setOnClickListener(this);
         }
 
+        public void setItemClickListener(OnItemClickListener onItemClickListener) {
+            this.mOnItemClickListener = onItemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mOnItemClickListener.onItemClick(this, getLayoutPosition());
+        }
     }
 
 }
