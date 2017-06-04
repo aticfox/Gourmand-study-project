@@ -22,7 +22,7 @@ public class PostActivity extends AppCompatActivity {
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, new PostFragment())
+                    .add(R.id.content_container, new PostFragment())
                     .commit();
         }
     }

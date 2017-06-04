@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
             FeedFragment feedFragment = FeedFragment.newInstance();
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer,
+                    .add(R.id.content_container,
                             feedFragment,
                             FRAGMENT_FEED)
-                    .add(R.id.contentContainer,
+                    .add(R.id.content_container,
                             profileFragment,
                             FRAGMENT_PROFILE)
                     .detach(profileFragment)

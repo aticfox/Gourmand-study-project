@@ -19,9 +19,9 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
-    public GridSquarePhotoAdapter(Context context, int column, OnItemClickListener itemClickListener) {
+    public GridSquarePhotoAdapter(Context context, int column, OnItemClickListener onItemClickListener) {
         mContext = context;
-        mOnItemClickListener = itemClickListener;
+        mOnItemClickListener = onItemClickListener;
         mColumn = column;
     }
 
