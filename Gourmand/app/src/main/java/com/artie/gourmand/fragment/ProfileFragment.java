@@ -24,7 +24,7 @@ public class ProfileFragment extends Fragment {
 
     RecyclerView mRecyclerView;
     RecyclerViewHeader mRecyclerViewHeader;
-    ProfileHeaderFragment mProfileHeaderView;
+    ProfileHeaderFragment mProfileHeaderFragment;
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -53,10 +53,10 @@ public class ProfileFragment extends Fragment {
         mRecyclerViewHeader = (RecyclerViewHeader) rootView.findViewById(R.id.recycler_header_view);
         mRecyclerViewHeader.attachTo(mRecyclerView);
 
-        mProfileHeaderView = ProfileHeaderFragment.newInstance();
+        mProfileHeaderFragment = ProfileHeaderFragment.newInstance();
         getChildFragmentManager().beginTransaction()
                 .add(R.id.content_container_header,
-                        mProfileHeaderView,
+                        mProfileHeaderFragment,
                         FRAGMENT_PROFILE_HEADER)
                 .commit();
     }

@@ -19,8 +19,8 @@ import com.artie.gourmand.activity.FollowingActivity;
 
 public class ProfileHeaderFragment extends Fragment{
 
-    LinearLayout linearLayoutFollower;
-    LinearLayout linearLayoutFollowing;
+    LinearLayout mLinearLayoutFollower;
+    LinearLayout mLinearLayoutFollowing;
 
     public static ProfileHeaderFragment newInstance() {
         Bundle args = new Bundle();
@@ -52,12 +52,12 @@ public class ProfileHeaderFragment extends Fragment{
     }
 
     private void initInstances(View rootView) {
-        linearLayoutFollower = (LinearLayout) rootView.findViewById(R.id.linear_layout_follower);
-        linearLayoutFollowing = (LinearLayout) rootView.findViewById(R.id.linear_layout_following);
+        mLinearLayoutFollower = (LinearLayout) rootView.findViewById(R.id.linear_layout_follower);
+        mLinearLayoutFollowing = (LinearLayout) rootView.findViewById(R.id.linear_layout_following);
 
 
-        linearLayoutFollower.setOnClickListener(followClickListener);
-        linearLayoutFollowing.setOnClickListener(followClickListener);
+        mLinearLayoutFollower.setOnClickListener(followClickListener);
+        mLinearLayoutFollowing.setOnClickListener(followClickListener);
     }
 
     View.OnClickListener followClickListener = new View.OnClickListener() {

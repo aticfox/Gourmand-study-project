@@ -22,7 +22,7 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mPosition.setText("Followeing, Position: "+position);
+        holder.mTextViewPosition.setText("Followeing, Position: " + position);
     }
 
     @Override
@@ -31,11 +31,11 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mPosition;
+        public TextView mTextViewPosition;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.mPosition = (TextView) itemView.findViewById(R.id.text_following);
+            mTextViewPosition = (TextView) itemView.findViewById(R.id.text_following);
         }
     }
 
