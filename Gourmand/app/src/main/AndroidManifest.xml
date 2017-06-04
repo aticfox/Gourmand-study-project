@@ -20,6 +20,8 @@
         <activity android:name=".activity.CreatePostActivity" />
         <activity android:name=".activity.SelectLocationActivity" />
         <activity android:name=".activity.PostActivity" />
+        <activity android:name=".activity.FollowingActivity" />
+        <activity android:name=".activity.FollowerActivity" />
     </application>
 
 </manifest>

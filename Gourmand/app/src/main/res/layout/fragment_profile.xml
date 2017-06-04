@@ -15,7 +15,10 @@
         android:layout_height="160dp"
         android:background="@android:color/white" >
 
-        <include layout="@layout/view_profile_header" />
+        <FrameLayout
+            android:id="@+id/content_container_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
