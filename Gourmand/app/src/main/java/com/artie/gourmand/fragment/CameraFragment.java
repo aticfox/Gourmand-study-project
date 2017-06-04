@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.activity.PostPhotoActivity;
+import com.artie.gourmand.activity.CreatePostActivity;
 import com.flurgle.camerakit.CameraView;
 
 /**
@@ -61,7 +61,7 @@ public class CameraFragment extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.button_take_photo :
-                        Intent intent = PostPhotoActivity.getStartIntent(getContext());
+                        Intent intent = CreatePostActivity.getStartIntent(getContext());
                         startActivity(intent);
                         break;
                     default:

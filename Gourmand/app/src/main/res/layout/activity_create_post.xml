@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.artie.gourmand.activity.PostPhotoActivity">
+    tools:context="com.artie.gourmand.activity.CreatePostActivity">
 
     <com.artie.gourmand.view.SquareImageView
         android:id="@+id/image_post"

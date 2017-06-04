@@ -1,5 +1,6 @@
 package com.artie.gourmand.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.PostActivity;
 import com.artie.gourmand.adapter.GridSquarePhotoAdapter;
+import com.artie.gourmand.adapter.OnItemClickListener;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 
 /**
@@ -47,8 +50,14 @@ public class ProfileFragment extends Fragment {
 
     private void initInstances(View rootView) {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mRecyclerView.setAdapter(new GridSquarePhotoAdapter(PHOTO_COLUMN));
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), PHOTO_COLUMN));
+        mRecyclerView.setAdapter(new GridSquarePhotoAdapter(getContext(), PHOTO_COLUMN, new OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder holder, int position) {
+                Intent intent = PostActivity.getStartIntent(getContext());
+                startActivity(intent);
+            }
+        }));
 
         mRecyclerViewHeader = (RecyclerViewHeader) rootView.findViewById(R.id.recycler_header_view);
         mRecyclerViewHeader.attachTo(mRecyclerView);
