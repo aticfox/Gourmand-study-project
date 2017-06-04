@@ -3,10 +3,11 @@ package com.artie.gourmand.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.adapter.FeedAdapter;
@@ -17,8 +18,7 @@ import com.artie.gourmand.adapter.FeedAdapter;
 
 public class FeedFragment extends Fragment {
 
-    ListView mListView;
-    FeedAdapter mListAdapter;
+    RecyclerView mRecyclerView;
 
     public static FeedFragment newInstance() {
         Bundle args = new Bundle();
@@ -40,9 +40,9 @@ public class FeedFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
-        mListView = (ListView) rootView.findViewById(R.id.list_view);
-        mListAdapter = new FeedAdapter();
-        mListView.setAdapter(mListAdapter);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(new FeedAdapter());
     }
 
 }

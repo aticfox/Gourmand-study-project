@@ -1,43 +1,38 @@
 package com.artie.gourmand.adapter;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
-import com.artie.gourmand.view.FeedItem;
+import com.artie.gourmand.R;
 
 /**
  * Created by ANFIELD on 24/5/2560.
  */
 
-public class FeedAdapter extends BaseAdapter {
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
 
     @Override
-    public int getCount() {
-        return 100;
+    public FeedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feed, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public void onBindViewHolder(FeedAdapter.ViewHolder holder, int position) {
+
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
+    public int getItemCount() {
+        return 20;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        FeedItem item;
-
-        if (convertView == null) {
-            item = new FeedItem(parent.getContext());
-        } else {
-            item = (FeedItem) convertView;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(View itemView) {
+            super(itemView);
         }
-
-        return item;
     }
 
 }
