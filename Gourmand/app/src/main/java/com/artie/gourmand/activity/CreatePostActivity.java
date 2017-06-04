@@ -11,19 +11,19 @@ import android.widget.TextView;
 
 import com.artie.gourmand.R;
 
-public class PostPhotoActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreatePostActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView mTextViewSelectLocation;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, PostPhotoActivity.class);
+        Intent intent = new Intent(context, CreatePostActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_photo);
+        setContentView(R.layout.activity_create_post);
 
         initInstances();
     }
@@ -43,7 +43,7 @@ public class PostPhotoActivity extends AppCompatActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_post:
-                Intent intent = MainActivity.getStartIntent(PostPhotoActivity.this);
+                Intent intent = MainActivity.getStartIntent(CreatePostActivity.this);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
@@ -57,7 +57,7 @@ public class PostPhotoActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.text_select_location:
-                Intent intent = SelectLocationActivity.getStartIntent(PostPhotoActivity.this);
+                Intent intent = SelectLocationActivity.getStartIntent(CreatePostActivity.this);
                 startActivity(intent);
                 break;
             default:

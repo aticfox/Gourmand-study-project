@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.activity.PostPhotoActivity;
+import com.artie.gourmand.activity.CreatePostActivity;
 
 /**
  * Created by ANFIELD on 26/5/2560.
@@ -65,7 +65,7 @@ public class GalleryFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_next:
-                Intent intent = PostPhotoActivity.getStartIntent(getContext());
+                Intent intent = CreatePostActivity.getStartIntent(getContext());
                 startActivity(intent);
                 return true;
             default:
