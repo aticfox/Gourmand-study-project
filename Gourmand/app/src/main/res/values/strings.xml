@@ -5,4 +5,8 @@
     <string name="location_name">Location Name</string>
     <string name="following">Followings</string>
     <string name="follower">Followers</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="register">Create Account</string>
 </resources>
