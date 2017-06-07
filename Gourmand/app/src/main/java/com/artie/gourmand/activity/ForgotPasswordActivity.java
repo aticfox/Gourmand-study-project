@@ -6,23 +6,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.fragment.LoginFragment;
+import com.artie.gourmand.fragment.ForgotPasswordFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, ForgotPasswordActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_forgot_password);
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_container, new LoginFragment())
+                    .add(R.id.content_container, new ForgotPasswordFragment())
                     .commit();
         }
     }

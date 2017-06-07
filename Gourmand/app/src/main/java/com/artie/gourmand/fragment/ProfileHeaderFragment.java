@@ -61,22 +61,21 @@ public class ProfileHeaderFragment extends Fragment{
     }
 
     View.OnClickListener followClickListener = new View.OnClickListener() {
-        Intent intent;
 
         @Override
         public void onClick(View v) {
+            Intent intent;
             switch (v.getId()) {
                 case R.id.linear_layout_follower:
                     intent = FollowerActivity.getStartIntent(getContext());
-                    startActivity(intent);
                     break;
                 case R.id.linear_layout_following:
                     intent = FollowingActivity.getStartIntent(getContext());
-                    startActivity(intent);
                     break;
                 default:
-                    break;
+                    return;
             }
+            startActivity(intent);
 
         }
     };

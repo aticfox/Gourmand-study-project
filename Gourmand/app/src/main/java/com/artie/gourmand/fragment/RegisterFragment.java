@@ -8,22 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.activity.ForgotPasswordActivity;
 import com.artie.gourmand.activity.MainActivity;
-import com.artie.gourmand.activity.RegisterActivity;
 
 /**
- * Created by ANFIELD on 6/6/2560.
+ * Created by ANFIELD on 7/6/2560.
  */
 
-public class LoginFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
-    Button mButtonLogin;
-    TextView mTextRegister;
-    TextView mTextForgotPassword;
+    Button mButtonSingUp;
 
     public static LoginFragment newInstance() {
         Bundle args = new Bundle();
@@ -37,7 +32,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_register, container, false);
 
         initInstances(rootView);
 
@@ -45,32 +40,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
-        mButtonLogin = (Button) rootView.findViewById(R.id.button_login);
-        mButtonLogin.setOnClickListener(onClickListener);
-
-        mTextRegister = (TextView) rootView.findViewById(R.id.text_register);
-        mTextRegister.setOnClickListener(onClickListener);
-
-
-        mTextForgotPassword = (TextView) rootView.findViewById(R.id.text_forgot_password);
-        mTextForgotPassword.setOnClickListener(onClickListener);
+        mButtonSingUp = (Button) rootView.findViewById(R.id.button_register);
+        mButtonSingUp.setOnClickListener(onClickListener);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
-
         @Override
         public void onClick(View v) {
             Intent intent;
-
             switch (v.getId()) {
-                case R.id.button_login:
+                case R.id.button_register:
                     intent = MainActivity.getStartIntent(getContext());
-                    break;
-                case R.id.text_register:
-                    intent = RegisterActivity.getStartIntent(getContext());
-                    break;
-                case R.id.text_forgot_password:
-                    intent = ForgotPasswordActivity.getStartIntent(getContext());
                     break;
                 default:
                     return;

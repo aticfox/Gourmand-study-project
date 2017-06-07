@@ -59,14 +59,15 @@ public class CameraFragment extends Fragment {
         mButtonTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent;
                 switch (v.getId()) {
                     case R.id.button_take_photo :
-                        Intent intent = CreatePostActivity.getStartIntent(getContext());
-                        startActivity(intent);
+                        intent = CreatePostActivity.getStartIntent(getContext());
                         break;
                     default:
-                        break;
+                        return;
                 }
+                startActivity(intent);
             }
         });
     }

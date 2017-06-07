@@ -6,23 +6,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.fragment.LoginFragment;
+import com.artie.gourmand.fragment.RegisterFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, RegisterActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_container, new LoginFragment())
+                    .add(R.id.content_container, new RegisterFragment())
                     .commit();
         }
     }
