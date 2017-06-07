@@ -1,5 +1,6 @@
 package com.artie.gourmand.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.MapActivity;
 import com.artie.gourmand.adapter.FeedAdapter;
+import com.artie.gourmand.adapter.OnItemClickListener;
 
 /**
  * Created by ANFIELD on 23/5/2560.
@@ -42,7 +45,13 @@ public class FeedFragment extends Fragment {
     private void initInstances(View rootView) {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(new FeedAdapter());
+        mRecyclerView.setAdapter(new FeedAdapter(new OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder holder, int position) {
+                Intent intent = MapActivity.getStartIntent(getContext());
+                startActivity(intent);
+            }
+        }));
     }
 
 }
