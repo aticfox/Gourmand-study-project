@@ -48,13 +48,16 @@ public class RegisterFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent;
+
             switch (v.getId()) {
                 case R.id.button_register:
                     intent = MainActivity.getStartIntent(getContext());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     break;
                 default:
                     return;
             }
+
             startActivity(intent);
         }
     };
