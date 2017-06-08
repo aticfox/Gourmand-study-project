@@ -65,6 +65,7 @@ public class ProfileHeaderFragment extends Fragment{
         @Override
         public void onClick(View v) {
             Intent intent;
+
             switch (v.getId()) {
                 case R.id.linear_layout_follower:
                     intent = FollowerActivity.getStartIntent(getContext());
@@ -75,8 +76,8 @@ public class ProfileHeaderFragment extends Fragment{
                 default:
                     return;
             }
-            startActivity(intent);
 
+            startActivity(intent);
         }
     };
 

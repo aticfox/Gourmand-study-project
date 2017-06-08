@@ -60,6 +60,7 @@ public class CameraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent;
+
                 switch (v.getId()) {
                     case R.id.button_take_photo :
                         intent = CreatePostActivity.getStartIntent(getContext());
@@ -67,6 +68,7 @@ public class CameraFragment extends Fragment {
                     default:
                         return;
                 }
+
                 startActivity(intent);
             }
         });

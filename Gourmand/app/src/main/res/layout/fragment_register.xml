@@ -38,7 +38,7 @@
 
     <Button
         android:id="@+id/button_register"
-        android:text="Sing up"
+        android:text="@string/sing_up"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -51,7 +51,6 @@ public class LoginFragment extends Fragment {
         mTextRegister = (TextView) rootView.findViewById(R.id.text_register);
         mTextRegister.setOnClickListener(onClickListener);
 
-
         mTextForgotPassword = (TextView) rootView.findViewById(R.id.text_forgot_password);
         mTextForgotPassword.setOnClickListener(onClickListener);
     }
@@ -76,6 +75,7 @@ public class LoginFragment extends Fragment {
                 default:
                     return;
             }
+
             startActivity(intent);
         }
     };

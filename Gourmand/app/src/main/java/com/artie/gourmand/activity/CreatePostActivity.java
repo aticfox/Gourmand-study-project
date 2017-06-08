@@ -56,6 +56,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
     public void onClick(View v) {
         Intent intent;
+
         switch (v.getId()) {
             case R.id.text_select_location:
                 intent = SelectLocationActivity.getStartIntent(CreatePostActivity.this);
@@ -63,6 +64,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
             default:
                 return;
         }
+
         startActivity(intent);
     }
 

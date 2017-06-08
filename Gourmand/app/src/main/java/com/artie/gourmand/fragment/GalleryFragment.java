@@ -63,7 +63,6 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.menu_next:
                 Intent intent = CreatePostActivity.getStartIntent(getContext());
@@ -72,7 +71,7 @@ public class GalleryFragment extends Fragment {
             default:
                 break;
         }
-        return super.onOptionsItemSelected(item);
 
+        return super.onOptionsItemSelected(item);
     }
 }
