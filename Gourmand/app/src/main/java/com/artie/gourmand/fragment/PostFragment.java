@@ -64,7 +64,7 @@ public class PostFragment extends Fragment {
                 default:
                     return;
             }
-           
+
             startActivity(intent);
         }
     };
