@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBaRysLey_ldfSXMaQzeuNSyQfDp6Q_q3I" />
@@ -29,12 +28,13 @@
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.ForgotPasswordActivity" />
         <activity android:name=".activity.RegisterActivity" />
-
+        <activity android:name=".activity.CommentActivity" />
     </application>
 
 </manifest>

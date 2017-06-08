@@ -42,6 +42,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             super(itemView);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
+            itemView.findViewById(R.id.button_comment).setOnClickListener(this);
         }
 
         public void setItemClickListener(OnItemClickListener onItemClickListener) {
@@ -50,7 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.onItemClick(this, getLayoutPosition());
+            mOnItemClickListener.onItemClick(v, getLayoutPosition());
         }
     }
 

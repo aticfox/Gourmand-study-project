@@ -59,7 +59,7 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.onItemClick(this, getLayoutPosition());
+            mOnItemClickListener.onItemClick(v, getLayoutPosition());
         }
     }
 
