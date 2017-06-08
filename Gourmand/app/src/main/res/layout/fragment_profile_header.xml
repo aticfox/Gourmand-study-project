@@ -79,6 +79,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/button_to_map"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:layout_width="44dp"

@@ -16,11 +16,9 @@ import com.artie.gourmand.util.Utils;
 public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhotoAdapter.ViewHolder> {
 
     private int mColumn;
-    private Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
     public GridSquarePhotoAdapter(Context context, int column, OnItemClickListener onItemClickListener) {
-        mContext = context;
         mOnItemClickListener = onItemClickListener;
         mColumn = column;
     }

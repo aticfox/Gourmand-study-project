@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.artie.gourmand">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBaRysLey_ldfSXMaQzeuNSyQfDp6Q_q3I" />
+
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.TakePhotoActivity" />
         <activity android:name=".activity.CreatePostActivity" />
@@ -16,6 +23,7 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.FollowingActivity" />
         <activity android:name=".activity.FollowerActivity" />
+        <activity android:name=".activity.MapActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/NoActionBar">
@@ -26,6 +34,7 @@
         </activity>
         <activity android:name=".activity.ForgotPasswordActivity" />
         <activity android:name=".activity.RegisterActivity" />
+
     </application>
 
 </manifest>
