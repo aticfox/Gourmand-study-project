@@ -54,4 +54,5 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             mOnItemClickListener.onItemClick(v, getLayoutPosition());
         }
     }
+
 }
