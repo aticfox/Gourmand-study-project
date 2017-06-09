@@ -43,7 +43,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_post:
-                Intent intent = MainActivity.getStartIntent(CreatePostActivity.this);
+                Intent intent = MainActivity.getStartIntent(CreatePostActivity.this, MainActivity.LAUNCH_SCREEN_FEED);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
