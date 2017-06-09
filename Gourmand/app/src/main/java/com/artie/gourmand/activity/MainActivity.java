@@ -3,6 +3,7 @@ package com.artie.gourmand.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,8 +18,17 @@ public class MainActivity extends AppCompatActivity {
     static final String FRAGMENT_FEED = "FeedFragment";
     static final String FRAGMENT_PROFILE = "ProfileFragment";
 
-    public static Intent getStartIntent(Context context) {
+    static final String EXTRA_KEY_LAUNCH_SCREEN = "LaunchScreen";
+
+    public static final int LAUNCH_SCREEN_FEED = 0;
+    public static final int LAUNCH_SCREEN_PROFILE = 1;
+
+    private int mLaunchScreen;
+
+    public static Intent getStartIntent(Context context, int launchScreen) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(EXTRA_KEY_LAUNCH_SCREEN, launchScreen);
+
         return intent;
     }
 
@@ -27,22 +37,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bindData();
         initInstances();
 
         if(savedInstanceState == null) {
-            ProfileFragment profileFragment = ProfileFragment.newInstance();
-            FeedFragment feedFragment = FeedFragment.newInstance();
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_container,
-                            feedFragment,
-                            FRAGMENT_FEED)
-                    .add(R.id.content_container,
-                            profileFragment,
-                            FRAGMENT_PROFILE)
-                    .detach(profileFragment)
-                    .commit();
+            bindFragment();
         }
+    }
+
+    private void bindData() {
+        mLaunchScreen = getIntent().getIntExtra(EXTRA_KEY_LAUNCH_SCREEN, LAUNCH_SCREEN_FEED);
     }
 
     private void initInstances() {
@@ -51,6 +55,34 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setHomeAsUpIndicator(android.R.drawable.ic_menu_camera);
+    }
+
+    private void bindFragment() {
+        ProfileFragment profileFragment = ProfileFragment.newInstance();
+        FeedFragment feedFragment = FeedFragment.newInstance();
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.content_container,
+                        feedFragment,
+                        FRAGMENT_FEED)
+                .add(R.id.content_container,
+                        profileFragment,
+                        FRAGMENT_PROFILE)
+                .commit();
+
+        Fragment detachFragment;
+        switch (mLaunchScreen) {
+            case LAUNCH_SCREEN_PROFILE:
+                detachFragment = feedFragment;
+                break;
+            default:
+                detachFragment = profileFragment;
+                break;
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .detach(detachFragment)
+                .commit();
     }
 
     @Override

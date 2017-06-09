@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.button_login:
-                    intent = MainActivity.getStartIntent(getContext());
+                    intent = MainActivity.getStartIntent(getContext(), MainActivity.LAUNCH_SCREEN_FEED);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     break;
                 case R.id.text_register:

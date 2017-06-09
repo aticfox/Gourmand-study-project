@@ -8,31 +8,31 @@ import android.view.ViewGroup;
 import com.artie.gourmand.R;
 
 /**
- * Created by ANFIELD on 24/5/2560.
+ * Created by ANFIELD on 9/6/2560.
  */
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
 
-    public FeedAdapter(OnItemClickListener onItemClickListener) {
+    public CommentAdapter(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
     @Override
-    public FeedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feed, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FeedAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setItemClickListener(mOnItemClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return 10;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -41,8 +41,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
-            itemView.findViewById(R.id.button_comment).setOnClickListener(this);
+            itemView.findViewById(R.id.text_username).setOnClickListener(this);
+
         }
 
         public void setItemClickListener(OnItemClickListener onItemClickListener) {

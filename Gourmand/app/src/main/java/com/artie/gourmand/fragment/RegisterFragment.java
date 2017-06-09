@@ -51,7 +51,7 @@ public class RegisterFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.button_register:
-                    intent = MainActivity.getStartIntent(getContext());
+                    intent = MainActivity.getStartIntent(getContext(), MainActivity.LAUNCH_SCREEN_FEED);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     break;
                 default:

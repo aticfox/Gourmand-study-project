@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.CommentActivity;
 import com.artie.gourmand.activity.MapActivity;
 
 /**
@@ -19,6 +21,7 @@ import com.artie.gourmand.activity.MapActivity;
 public class PostFragment extends Fragment {
 
     TextView mTextLocationName;
+    Button mButtonComment;
 
     public static FeedFragment newInstance() {
         Bundle args = new Bundle();
@@ -40,14 +43,30 @@ public class PostFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
+        mButtonComment = (Button) rootView.findViewById(R.id.button_comment);
+        mButtonComment.setOnClickListener(onClickListener);
         mTextLocationName = (TextView) rootView.findViewById(R.id.text_location_name);
-        mTextLocationName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = MapActivity.getStartIntent(getContext());
-                startActivity(intent);
-            }
-        });
+        mTextLocationName.setOnClickListener(onClickListener);
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+
+            switch (v.getId()) {
+                case R.id.text_location_name:
+                    intent = MapActivity.getStartIntent(getContext());
+                    break;
+                case R.id.button_comment:
+                    intent = CommentActivity.getStartIntent(getContext());
+                    break;
+                default:
+                    return;
+            }
+
+            startActivity(intent);
+        }
+    };
 
 }

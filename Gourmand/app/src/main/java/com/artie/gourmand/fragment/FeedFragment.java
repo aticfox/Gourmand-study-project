@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.CommentActivity;
 import com.artie.gourmand.activity.MapActivity;
 import com.artie.gourmand.adapter.FeedAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
@@ -47,8 +48,20 @@ public class FeedFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(new FeedAdapter(new OnItemClickListener() {
             @Override
-            public void onItemClick(RecyclerView.ViewHolder holder, int position) {
-                Intent intent = MapActivity.getStartIntent(getContext());
+            public void onItemClick(View view, int position) {
+                Intent intent;
+
+                switch (view.getId()) {
+                    case R.id.text_location_name:
+                        intent = MapActivity.getStartIntent(getContext());
+                        break;
+                    case R.id.button_comment:
+                        intent = CommentActivity.getStartIntent(getContext());
+                        break;
+                    default:
+                        return;
+                }
+
                 startActivity(intent);
             }
         }));
