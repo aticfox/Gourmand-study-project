@@ -1,10 +1,10 @@
 package com.artie.gourmand.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.util.Utils;
@@ -18,9 +18,12 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
     private int mColumn;
     private OnItemClickListener mOnItemClickListener;
 
-    public GridSquarePhotoAdapter(Context context, int column, OnItemClickListener onItemClickListener) {
+    private int[] mPostImageIDs;
+
+    public GridSquarePhotoAdapter(int[] postImageIDs, int column, OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
         mColumn = column;
+        mPostImageIDs = postImageIDs;
     }
 
     @Override
@@ -37,18 +40,23 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setItemClickListener(mOnItemClickListener);
+        holder.setPostImageID(mPostImageIDs[position]);
     }
 
     @Override
     public int getItemCount() {
-        return 100;
+        return mPostImageIDs.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private OnItemClickListener mOnItemClickListener;
 
+        ImageView mPostImage;
+
         public ViewHolder(View itemView) {
             super(itemView);
+
+            mPostImage = (ImageView) itemView.findViewById(R.id.image_photo);
 
             itemView.findViewById(R.id.view_overlay).setOnClickListener(this);
         }
@@ -60,6 +68,10 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
         @Override
         public void onClick(View v) {
             mOnItemClickListener.onItemClick(v, getLayoutPosition());
+        }
+
+        public void setPostImageID(int postImageID) {
+            mPostImage.setImageResource(postImageID);
         }
     }
 
