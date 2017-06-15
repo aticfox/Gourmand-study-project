@@ -53,8 +53,8 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.View
         }
 
         public void setUser(User user) {
-            mUserImage.setImageResource(user.getmUserImageID());
-            mUserName.setText(user.getmUserName());
+            mUserImage.setImageResource(user.getUserImageID());
+            mUserName.setText(user.getUserName());
         }
     }
 

@@ -51,7 +51,7 @@ public class FeedFragment extends Fragment {
     }
 
     private void setupData() {
-        String[] userNames = getActivity().getResources().getStringArray(R.array.users_name);
+        String[] userNames = getActivity().getResources().getStringArray(R.array.user_names);
         int[] postImageIDs = new int[]{
                 R.drawable.image_food,
                 R.drawable.image_food2,

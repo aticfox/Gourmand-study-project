@@ -16,15 +16,15 @@ public class Post {
         mUserName = userName;
     }
 
-    public int getmUserImageID() {
+    public int getUserImageID() {
         return mUserImageID;
     }
 
-    public int getmPostImageID() {
+    public int getPostImageID() {
         return mPostImageID;
     }
 
-    public String getmUserName() {
+    public String getUserName() {
         return mUserName;
     }
 

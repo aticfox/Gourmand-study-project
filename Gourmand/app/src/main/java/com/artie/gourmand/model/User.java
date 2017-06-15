@@ -14,11 +14,11 @@ public class User {
         this.mUserName = userName;
     }
 
-    public int getmUserImageID() {
+    public int getUserImageID() {
         return mUserImageID;
     }
 
-    public String getmUserName() {
+    public String getUserName() {
         return mUserName;
     }
 

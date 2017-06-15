@@ -17,7 +17,7 @@
     <string name="sing_up">Sing up</string>
     <string name="aticfox">Aticfox</string>
 
-    <string-array name="users_name">
+    <string-array name="user_names">
         <item>"Linda"</item>
         <item>"Susan"</item>
         <item>"Lisa"</item>
@@ -31,7 +31,7 @@
         <item>"Katherine"</item>
     </string-array>
 
-    <string-array name="location_name">
+    <string-array name="location_names">
         <item>"Central Westgate"</item>
         <item>"Silpakorn University"</item>
         <item>"Maria Pizzeria Restaurant"</item>

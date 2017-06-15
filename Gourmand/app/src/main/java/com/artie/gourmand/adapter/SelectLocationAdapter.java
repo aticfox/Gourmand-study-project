@@ -16,8 +16,8 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
 
     private String[] mLocationNames;
 
-    public SelectLocationAdapter(String[] locations) {
-        mLocationNames = locations;
+    public SelectLocationAdapter(String[] locationNames) {
+        mLocationNames = locationNames;
     }
 
     @Override

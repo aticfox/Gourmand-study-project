@@ -53,8 +53,8 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.ViewHo
         }
 
         public void setUser(User user) {
-            mUserImage.setImageResource(user.getmUserImageID());
-            mUserName.setText(user.getmUserName());
+            mUserImage.setImageResource(user.getUserImageID());
+            mUserName.setText(user.getUserName());
         }
     }
 

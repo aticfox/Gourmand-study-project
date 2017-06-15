@@ -56,9 +56,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mUserImage = (ImageView) itemView.findViewById(R.id.users_image);
+            mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
             mPostImage = (ImageView) itemView.findViewById(R.id.image_post);
-            mUserName = (TextView) itemView.findViewById(R.id.users_name);
+            mUserName = (TextView) itemView.findViewById(R.id.text_username);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
             itemView.findViewById(R.id.button_comment).setOnClickListener(this);
@@ -74,9 +74,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         }
 
         public void setPost(Post post) {
-            mUserImage.setImageResource(post.getmUserImageID());
-            mPostImage.setImageResource(post.getmPostImageID());
-            mUserName.setText(post.getmUserName());
+            mUserImage.setImageResource(post.getUserImageID());
+            mPostImage.setImageResource(post.getPostImageID());
+            mUserName.setText(post.getUserName());
         }
     }
 

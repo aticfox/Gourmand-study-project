@@ -36,7 +36,7 @@ public class FollowingActivity extends AppCompatActivity {
     }
 
     private void setupData() {
-        String[] userNames = getResources().getStringArray(R.array.users_name);
+        String[] userNames = getResources().getStringArray(R.array.user_names);
         int[] userImageIDs = new int[]{
                 R.drawable.image_profile,
                 R.drawable.image_profile2,

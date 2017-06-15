@@ -35,7 +35,7 @@ public class SelectLocationActivity extends AppCompatActivity {
     }
 
     private void setupData() {
-        mLocationNames = getResources().getStringArray(R.array.location_name);
+        mLocationNames = getResources().getStringArray(R.array.location_names);
     }
 
     private void initInstances() {
