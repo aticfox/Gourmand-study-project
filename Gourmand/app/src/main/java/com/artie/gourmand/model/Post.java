@@ -1,4 +1,4 @@
-package com.artie.gourmand.manager;
+package com.artie.gourmand.model;
 
 /**
  * Created by ANFIELD on 15/6/2560.

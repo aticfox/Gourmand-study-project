@@ -15,7 +15,7 @@ import com.artie.gourmand.activity.CommentActivity;
 import com.artie.gourmand.activity.MapActivity;
 import com.artie.gourmand.adapter.FeedAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
-import com.artie.gourmand.manager.Post;
+import com.artie.gourmand.model.Post;
 
 import java.util.ArrayList;
 import java.util.List;

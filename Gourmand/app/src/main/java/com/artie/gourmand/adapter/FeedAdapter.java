@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.manager.Post;
+import com.artie.gourmand.model.Post;
 
 import java.util.ArrayList;
 import java.util.List;

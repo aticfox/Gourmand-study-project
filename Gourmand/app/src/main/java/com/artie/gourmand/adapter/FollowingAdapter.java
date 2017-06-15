@@ -4,15 +4,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ANFIELD on 2/6/2560.
  */
 
 public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.ViewHolder> {
+
+    private List<User> mUsers = new ArrayList<>();
+
+    public FollowingAdapter(List<User> users) {
+        mUsers = users;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -22,24 +33,28 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setText("Following user , no : " + position);
+        holder.setUser(mUsers.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 1920;
+        return mUsers.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextViewPosition;
+        ImageView mUserImage;
+        TextView mUserName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextViewPosition = (TextView) itemView.findViewById(R.id.text_following);
+
+            mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
+            mUserName = (TextView) itemView.findViewById(R.id.text_username);
         }
 
-        public void setText(String text) {
-            mTextViewPosition.setText(text);
+        public void setUser(User user) {
+            mUserImage.setImageResource(user.getmUserImageID());
+            mUserName.setText(user.getmUserName());
         }
     }
 
