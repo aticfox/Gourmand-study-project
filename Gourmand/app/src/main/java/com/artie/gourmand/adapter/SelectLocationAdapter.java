@@ -14,6 +14,12 @@ import com.artie.gourmand.R;
 
 public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAdapter.ViewHolder> {
 
+    private String[] mLocationNames;
+
+    public SelectLocationAdapter(String[] locations) {
+        mLocationNames = locations;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
@@ -22,20 +28,24 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mPosition.setText("Location name, Position: "+position); //ต้องเป็น String
+        holder.setLocationName(mLocationNames[position]);
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mLocationNames.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mPosition;
+        public TextView mLocationName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.mPosition = (TextView) itemView.findViewById(R.id.text_location_name);
+            mLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
+        }
+
+        public void setLocationName(String locationName) {
+            mLocationName.setText(locationName);
         }
     }
 

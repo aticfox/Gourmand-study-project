@@ -16,6 +16,8 @@ public class SelectLocationActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
 
+    private String[] mLocationNames;
+
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, SelectLocationActivity.class);
         return intent;
@@ -26,15 +28,20 @@ public class SelectLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_location);
 
+        setupData();
         initInstances();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    private void setupData() {
+        mLocationNames = getResources().getStringArray(R.array.location_name);
+    }
+
     private void initInstances() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_select_location);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView.setAdapter(new SelectLocationAdapter());
+        mRecyclerView.setAdapter(new SelectLocationAdapter(mLocationNames));
     }
 
 }

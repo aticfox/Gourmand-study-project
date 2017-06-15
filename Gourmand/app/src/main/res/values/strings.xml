@@ -31,4 +31,16 @@
         <item>"Katherine"</item>
     </string-array>
 
+    <string-array name="location_name">
+        <item>"Central Westgate"</item>
+        <item>"Silpakorn University"</item>
+        <item>"Maria Pizzeria Restaurant"</item>
+        <item>"ร้านอาหารบ้านป้าแจ๋ว"</item>
+        <item>"ภัตตาคารอาหารญี่ปุ่นฟูจิ"</item>
+        <item>"สวนอาหารนัดพบ"</item>
+        <item>"ร้านอาหาร บ้านพริกสวน"</item>
+        <item>"หนานกุอาหารเหนือ"</item>
+        <item>"บ้านเอกเขนก"</item>
+    </string-array>
+
 </resources>
