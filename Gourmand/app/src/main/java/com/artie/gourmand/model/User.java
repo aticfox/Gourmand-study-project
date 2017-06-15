@@ -21,5 +21,5 @@ public class User {
     public String getmUserName() {
         return mUserName;
     }
-    
+
 }
