@@ -22,12 +22,12 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setText("Followeing, Position: " + position);
+        holder.setText("Following user , no : " + position);
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return 1920;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

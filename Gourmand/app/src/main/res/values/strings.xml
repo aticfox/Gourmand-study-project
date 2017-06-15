@@ -16,4 +16,19 @@
     <string name="login">Login</string>
     <string name="sing_up">Sing up</string>
     <string name="aticfox">Aticfox</string>
+
+    <string-array name="users_name">
+        <item>"Linda"</item>
+        <item>"Susan"</item>
+        <item>"Lisa"</item>
+        <item>"Betty"</item>
+        <item>"Helen"</item>
+        <item>"Laura"</item>
+        <item>"Anna"</item>
+        <item>"Jessica"</item>
+        <item>"Christine"</item>
+        <item>"Alice"</item>
+        <item>"Katherine"</item>
+    </string-array>
+
 </resources>
