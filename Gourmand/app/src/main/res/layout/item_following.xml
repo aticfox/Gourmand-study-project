@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_user"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="10dp"
@@ -12,7 +13,7 @@
         android:src="@drawable/image_profile_mock" />
 
     <TextView
-        android:id="@+id/text_following"
+        android:id="@+id/text_username"
         android:text="@string/following"
         android:textSize="18sp"
         android:layout_marginLeft="10dp"

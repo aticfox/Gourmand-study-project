@@ -35,9 +35,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng westgate = new LatLng(13.87738, 100.41214);
+        mMap.addMarker(new MarkerOptions().position(westgate).title("Marker at Central Westgate"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(westgate));
     }
 
 }
