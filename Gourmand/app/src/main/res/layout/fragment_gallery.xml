@@ -5,9 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <com.artie.gourmand.view.SquareImageView
+        android:id="@+id/img_result"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:scaleType="fitCenter"/>
+    <Button
+        android:id="@+id/btn_choose_photo"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Choose photo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fragment gallery" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
