@@ -68,7 +68,7 @@
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="L" />
+            android:background="@drawable/select_btn_like" />
 
         <Button
             android:id="@+id/button_comment"
