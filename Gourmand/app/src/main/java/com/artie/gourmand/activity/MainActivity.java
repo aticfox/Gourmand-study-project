@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         ProfileFragment profileFragment = (ProfileFragment) getSupportFragmentManager()
                 .findFragmentByTag(FRAGMENT_PROFILE);
         FeedFragment feedFragment = (FeedFragment) getSupportFragmentManager()
@@ -112,8 +113,12 @@ public class MainActivity extends AppCompatActivity {
                         .attach(feedFragment)
                         .commit();
                 break;
+            case R.id.menu_search:
+                intent = SearchActivity.getStartIntent(MainActivity.this);
+                startActivity(intent);
+                break;
             case android.R.id.home:
-                Intent intent = TakePhotoActivity.getStartIntent(MainActivity.this);
+                intent = TakePhotoActivity.getStartIntent(MainActivity.this);
                 startActivity(intent);
                 break;
         }
