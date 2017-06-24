@@ -12,16 +12,19 @@ import android.view.MenuItem;
 import com.artie.gourmand.R;
 import com.artie.gourmand.fragment.FeedFragment;
 import com.artie.gourmand.fragment.ProfileFragment;
+import com.artie.gourmand.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     static final String FRAGMENT_FEED = "FeedFragment";
     static final String FRAGMENT_PROFILE = "ProfileFragment";
+    static final String FRAGMENT_SEARCH = "SearchFragment";
 
     static final String EXTRA_KEY_LAUNCH_SCREEN = "LaunchScreen";
 
     public static final int LAUNCH_SCREEN_FEED = 0;
     public static final int LAUNCH_SCREEN_PROFILE = 1;
+    public static final int LAUNCH_SCREEN_SEARCH = 2;
 
     private int mLaunchScreen;
 
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void bindFragment() {
         ProfileFragment profileFragment = ProfileFragment.newInstance();
         FeedFragment feedFragment = FeedFragment.newInstance();
+        SearchFragment searchFragment = SearchFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.content_container,
@@ -68,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.content_container,
                         profileFragment,
                         FRAGMENT_PROFILE)
+                .add(R.id.content_container,
+                        searchFragment,
+                        FRAGMENT_SEARCH)
                 .commit();
 
         Fragment detachFragment;
