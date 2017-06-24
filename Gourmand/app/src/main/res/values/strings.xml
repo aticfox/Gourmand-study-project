@@ -2,6 +2,7 @@
     <string name="app_name">Gourmand</string>
     <string name="hint_caption">Write your caption</string>
     <string name="select_location">Select Location</string>
+    <string name="search_friend">Friend username</string>
     <string name="location_name">Location Name</string>
     <string name="following">Followings</string>
     <string name="follower">Followers</string>
