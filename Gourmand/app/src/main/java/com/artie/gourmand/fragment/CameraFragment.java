@@ -80,32 +80,10 @@ public class CameraFragment extends Fragment {
 
     private void initInstances(View rootView) {
         mCameraView = (CameraView) rootView.findViewById(R.id.camera);
-        mCameraView.setCameraListener(new CameraListener() {
-            @Override
-            public void onPictureTaken(byte[] jpeg) {
-                super.onPictureTaken(jpeg);
-
-                Bitmap result = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
-                mImageURI = getImageUri(getContext(), result);
-
-                Intent intent = CreatePostActivity.getStartIntent(getContext(), mImageURI);
-                startActivity(intent);
-            }
-        });
+        mCameraView.setCameraListener(cameraListener);
 
         mButtonTakePhoto = (Button) rootView.findViewById(R.id.button_take_photo);
-        mButtonTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.button_take_photo :
-                        mCameraView.captureImage();
-                        break;
-                    default:
-                        return;
-                }
-            }
-        });
+        mButtonTakePhoto.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -120,11 +98,37 @@ public class CameraFragment extends Fragment {
         mCameraView.stop();
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
+    public Uri getImageUri(Context context, Bitmap image) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        image.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), image, "Title", null);
         return Uri.parse(path);
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.button_take_photo:
+                    mCameraView.captureImage();
+                    break;
+                default:
+                    return;
+            }
+        }
+    };
+
+    CameraListener cameraListener = new CameraListener() {
+        @Override
+        public void onPictureTaken(byte[] jpeg) {
+            super.onPictureTaken(jpeg);
+
+            Bitmap result = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
+            mImageURI = getImageUri(getContext(), result);
+
+            Intent intent = CreatePostActivity.getStartIntent(getContext(), mImageURI);
+            startActivity(intent);
+        }
+    };
 
 }
