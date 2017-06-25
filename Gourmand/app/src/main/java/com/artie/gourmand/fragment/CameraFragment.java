@@ -1,9 +1,19 @@
 package com.artie.gourmand.fragment;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +21,10 @@ import android.widget.Button;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.activity.CreatePostActivity;
+import com.flurgle.camerakit.CameraListener;
 import com.flurgle.camerakit.CameraView;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by ANFIELD on 26/5/2560.
@@ -21,6 +34,8 @@ public class CameraFragment extends Fragment {
 
     Button mButtonTakePhoto;
     CameraView mCameraView;
+
+    private Uri mImageURI;
 
     public static CameraFragment newInstance() {
         Bundle args = new Bundle();
@@ -36,6 +51,17 @@ public class CameraFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         init(savedInstanceState);
+
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Nullable
@@ -54,24 +80,10 @@ public class CameraFragment extends Fragment {
 
     private void initInstances(View rootView) {
         mCameraView = (CameraView) rootView.findViewById(R.id.camera);
+        mCameraView.setCameraListener(cameraListener);
 
         mButtonTakePhoto = (Button) rootView.findViewById(R.id.button_take_photo);
-        mButtonTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-
-                switch (v.getId()) {
-                    case R.id.button_take_photo :
-                        intent = CreatePostActivity.getStartIntent(getContext());
-                        break;
-                    default:
-                        return;
-                }
-
-                startActivity(intent);
-            }
-        });
+        mButtonTakePhoto.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -85,5 +97,38 @@ public class CameraFragment extends Fragment {
         super.onPause();
         mCameraView.stop();
     }
+
+    public Uri getImageUri(Context context, Bitmap image) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), image, "Title", null);
+        return Uri.parse(path);
+    }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.button_take_photo:
+                    mCameraView.captureImage();
+                    break;
+                default:
+                    return;
+            }
+        }
+    };
+
+    CameraListener cameraListener = new CameraListener() {
+        @Override
+        public void onPictureTaken(byte[] jpeg) {
+            super.onPictureTaken(jpeg);
+
+            Bitmap result = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
+            mImageURI = getImageUri(getContext(), result);
+
+            Intent intent = CreatePostActivity.getStartIntent(getContext(), mImageURI);
+            startActivity(intent);
+        }
+    };
 
 }

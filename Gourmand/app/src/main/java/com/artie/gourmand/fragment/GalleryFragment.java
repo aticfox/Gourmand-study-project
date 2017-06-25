@@ -30,6 +30,8 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
     Button mButtonChoosePhoto;
     ImageView mImageResult;
 
+    private Uri mSelectedImageURI;
+
     public static GalleryFragment newInstance() {
         Bundle args = new Bundle();
         GalleryFragment fragment = new GalleryFragment();
@@ -78,7 +80,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_next:
-                Intent intent = CreatePostActivity.getStartIntent(getContext());
+                Intent intent = CreatePostActivity.getStartIntent(getContext(), mSelectedImageURI);
                 startActivity(intent);
                 return true;
             default:
@@ -107,8 +109,8 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-                mImageResult.setImageURI(resultUri);
+                mSelectedImageURI = result.getUri();
+                mImageResult.setImageURI(mSelectedImageURI);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
