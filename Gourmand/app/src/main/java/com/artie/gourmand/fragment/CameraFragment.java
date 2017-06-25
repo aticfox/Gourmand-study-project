@@ -63,7 +63,7 @@ public class CameraFragment extends Fragment {
 
                 switch (v.getId()) {
                     case R.id.button_take_photo :
-                        intent = CreatePostActivity.getStartIntent(getContext());
+                        intent = CreatePostActivity.getStartIntent(getContext(), null);
                         break;
                     default:
                         return;
