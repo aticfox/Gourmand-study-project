@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.adapter.FollowingAdapter;
+import com.artie.gourmand.adapter.UserAdapter;
 import com.artie.gourmand.model.User;
 
 import java.util.ArrayList;
@@ -50,9 +50,22 @@ public class FollowingActivity extends AppCompatActivity {
                 R.drawable.image_profile10,
                 R.drawable.image_profile11
         };
+        Boolean[] userFollowings = new Boolean[]{
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+        };
 
         for(int i = 0; i< userNames.length; i++) {
-            User user = new User(userImageIDs[i], userNames[i]);
+            User user = new User(userImageIDs[i], userNames[i], userFollowings[i]);
             mUsers.add(user);
         }
     }
@@ -63,7 +76,7 @@ public class FollowingActivity extends AppCompatActivity {
 
         mRecyclerViewFollowing = (RecyclerView) findViewById(R.id.recycler_view_following);
         mRecyclerViewFollowing.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerViewFollowing.setAdapter(new FollowingAdapter(mUsers));
+        mRecyclerViewFollowing.setAdapter(new UserAdapter(mUsers));
     }
 
 }
