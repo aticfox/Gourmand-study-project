@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.adapter.FollowingAdapter;
+import com.artie.gourmand.adapter.UserAdapter;
 import com.artie.gourmand.model.User;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class FollowingActivity extends AppCompatActivity {
 
         mRecyclerViewFollowing = (RecyclerView) findViewById(R.id.recycler_view_following);
         mRecyclerViewFollowing.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerViewFollowing.setAdapter(new FollowingAdapter(mUsers));
+        mRecyclerViewFollowing.setAdapter(new UserAdapter(mUsers));
     }
 
 }
