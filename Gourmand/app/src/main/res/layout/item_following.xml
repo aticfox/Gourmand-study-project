@@ -20,7 +20,15 @@
         android:layout_marginLeft="10dp"
         android:textColor="@android:color/black"
         android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_margin="10dp"
+        android:layout_gravity="center_vertical"
+        android:text="following"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

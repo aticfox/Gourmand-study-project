@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,17 +45,24 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mUserImage;
         TextView mUserName;
+        Button mFollowButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
+            mFollowButton = (Button) itemView.findViewById(R.id.button_follow);
         }
 
         public void setUser(User user) {
             mUserImage.setImageResource(user.getUserImageID());
             mUserName.setText(user.getUserName());
+            mFollowButton.setText(followButtonTitle(user.isFollowing()));
+        }
+
+        private String followButtonTitle(Boolean isFollowing) {
+            return isFollowing ? "Following" : "Follow";
         }
     }
 

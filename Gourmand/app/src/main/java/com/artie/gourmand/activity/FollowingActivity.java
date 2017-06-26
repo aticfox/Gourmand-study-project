@@ -50,9 +50,22 @@ public class FollowingActivity extends AppCompatActivity {
                 R.drawable.image_profile10,
                 R.drawable.image_profile11
         };
+        Boolean[] userFollowings = new Boolean[]{
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+        };
 
         for(int i = 0; i< userNames.length; i++) {
-            User user = new User(userImageIDs[i], userNames[i]);
+            User user = new User(userImageIDs[i], userNames[i], userFollowings[i]);
             mUsers.add(user);
         }
     }
