@@ -1,5 +1,6 @@
 package com.artie.gourmand.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.model.Post;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.artie.gourmand.dao.PostItemCollectionDao;
+import com.artie.gourmand.dao.PostItemDao;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by ANFIELD on 24/5/2560.
@@ -19,13 +20,14 @@ import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
 
+    private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private PostItemCollectionDao mDao;
 
-    private List<Post> mPosts = new ArrayList<>();
-
-    public FeedAdapter(List<Post> posts, OnItemClickListener onItemClickListener) {
+    public FeedAdapter(Context context, PostItemCollectionDao dao, OnItemClickListener onItemClickListener) {
+        mContext = context;
         mOnItemClickListener = onItemClickListener;
-        mPosts = posts;
+        mDao = dao;
     }
 
     @Override
@@ -38,12 +40,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
     @Override
     public void onBindViewHolder(FeedAdapter.ViewHolder holder, int position) {
         holder.setItemClickListener(mOnItemClickListener);
-        holder.setPost(mPosts.get(position));
+        holder.setPost(mDao.getPosts().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mPosts.size();
+        return mDao.getPosts().size();
+    }
+
+    public void setDao(PostItemCollectionDao dao) {
+        mDao = dao;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -52,6 +58,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         ImageView mUserImage;
         ImageView mPostImage;
         TextView mUserName;
+        TextView mCaption;
+        TextView mCreateTime;
+        TextView mLocationName;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,6 +68,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
             mPostImage = (ImageView) itemView.findViewById(R.id.image_post);
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
+            mCaption = (TextView) itemView.findViewById(R.id.caption);
+            mCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
+            mLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
             itemView.findViewById(R.id.button_comment).setOnClickListener(this);
@@ -73,10 +85,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mOnItemClickListener.onItemClick(v, getLayoutPosition());
         }
 
-        public void setPost(Post post) {
-            mUserImage.setImageResource(post.getUserImageID());
-            mPostImage.setImageResource(post.getPostImageID());
-            mUserName.setText(post.getUserName());
+        public void setPost(PostItemDao post) {
+            mUserName.setText(post.getMember().getName());
+            mCaption.setText(post.getCaption());
+            mLocationName.setText(post.getLocationName());
+            mCreateTime.setText(post.getCreateTimeText());
+
+            Glide.with(mContext)
+                    .load(post.getMember().getAvatarUrl())
+                    .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                    .into(mUserImage);
+            Glide.with(mContext)
+                    .load(post.getImageUrl())
+                    .apply(RequestOptions.placeholderOf(R.drawable.post_placeholder))
+                    .into(mPostImage);
         }
     }
 

@@ -14,7 +14,7 @@
             android:id="@+id/image_user"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/image_profile_mock"
+            android:src="@drawable/avatar_placeholder"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -41,6 +41,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_create_time"
             android:text="12.00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -52,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_post_mock" />
+        android:src="@drawable/post_placeholder" />
 
     <TextView
         android:layout_margin="10dp"
