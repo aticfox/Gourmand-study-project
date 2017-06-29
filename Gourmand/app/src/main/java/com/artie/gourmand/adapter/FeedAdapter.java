@@ -59,7 +59,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         ImageView mPostImage;
         TextView mUserName;
         TextView mCaption;
-        TextView mCreatetime;
+        TextView mCreateTime;
         TextView mLocationName;
 
         public ViewHolder(View itemView) {
@@ -69,7 +69,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mPostImage = (ImageView) itemView.findViewById(R.id.image_post);
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
             mCaption = (TextView) itemView.findViewById(R.id.caption);
-            mCreatetime = (TextView) itemView.findViewById(R.id.text_create_time);
+            mCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
             mLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
@@ -89,7 +89,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mUserName.setText(post.getMember().getName());
             mCaption.setText(post.getCaption());
             mLocationName.setText(post.getLocationName());
-            mCreatetime.setText(post.getCreateTimeText());
+            mCreateTime.setText(post.getCreateTimeText());
 
             Glide.with(mContext)
                     .load(post.getMember().getAvatarUrl())

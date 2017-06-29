@@ -16,9 +16,10 @@ public class Contextor {
     }
 
     public static Contextor getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Contextor();
         }
+
         return instance;
     }
 
