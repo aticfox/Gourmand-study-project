@@ -1,5 +1,6 @@
 package com.artie.gourmand.manager.http;
 
+import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.PostItemCollectionDao;
 
 import retrofit2.Call;
@@ -13,5 +14,8 @@ public interface ApiService {
 
     @GET("posts.json")
     Call<PostItemCollectionDao> loadPosts();
+
+    @GET("members.json")
+    Call<MemberItemCollectionDao> loadMembers();
 
 }

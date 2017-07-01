@@ -7,19 +7,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.adapter.SearchAdapter;
-import com.artie.gourmand.model.User;
+import com.artie.gourmand.dao.MemberItemCollectionDao;
+import com.artie.gourmand.manager.HttpManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerViewFriend;
 
-    private List<User> mUsers = new ArrayList<>();
+    private SearchAdapter mSearchAdapter;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -36,47 +39,34 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupData() {
-        String[] userNames = getResources().getStringArray(R.array.user_names);
-        int[] userImageIDs = new int[]{
-                R.drawable.image_profile,
-                R.drawable.image_profile2,
-                R.drawable.image_profile3,
-                R.drawable.image_profile4,
-                R.drawable.image_profile5,
-                R.drawable.image_profile6,
-                R.drawable.image_profile7,
-                R.drawable.image_profile8,
-                R.drawable.image_profile9,
-                R.drawable.image_profile10,
-                R.drawable.image_profile11
-        };
-        Boolean[] userFollowings = new Boolean[]{
-                true,
-                true,
-                true,
-                false,
-                false,
-                true,
-                true,
-                false,
-                true,
-                false,
-                true
-        };
+        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadMembers();
 
-        for(int i = 0; i< userNames.length; i++) {
-            User user = new User(userImageIDs[i], userNames[i], userFollowings[i]);
-            mUsers.add(user);
-        }
+        call.enqueue(new Callback<MemberItemCollectionDao>() {
+            @Override
+            public void onResponse(Call<MemberItemCollectionDao> call, Response<MemberItemCollectionDao> response) {
+                if (response.isSuccessful()) {
+                    MemberItemCollectionDao dao = response.body();
+                    mSearchAdapter.setDao(dao);
+                    mSearchAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MemberItemCollectionDao> call, Throwable t) {
+                Log.d("Search", "Fail load data: " + t.toString());
+            }
+        });
     }
 
     private void initInstances() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Search Friend");
 
+        mSearchAdapter = new SearchAdapter(SearchActivity.this, new MemberItemCollectionDao());
+
         mRecyclerViewFriend = (RecyclerView) findViewById(R.id.recycler_view_select_friend);
         mRecyclerViewFriend.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerViewFriend.setAdapter(new SearchAdapter(mUsers));
+        mRecyclerViewFriend.setAdapter(mSearchAdapter);
     }
 
 }

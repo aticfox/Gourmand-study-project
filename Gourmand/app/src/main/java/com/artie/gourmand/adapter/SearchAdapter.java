@@ -1,5 +1,6 @@
 package com.artie.gourmand.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.artie.gourmand.dao.MemberItemCollectionDao;
+import com.artie.gourmand.dao.MemberItemDao;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by ANFIELD on 25/6/2560.
@@ -19,10 +20,12 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    private List<User> mUsers = new ArrayList<>();
+    private Context mContext;
+    private MemberItemCollectionDao mDao;
 
-    public SearchAdapter(List<User> users) {
-        mUsers = users;
+    public SearchAdapter(Context context, MemberItemCollectionDao dao) {
+        mContext = context;
+        mDao = dao;
     }
 
     @Override
@@ -33,12 +36,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(SearchAdapter.ViewHolder holder, int position) {
-        holder.setUser(mUsers.get(position));
+        holder.setMember(mDao.getMembers().get(position));
+    }
+
+    public void setDao(MemberItemCollectionDao dao) {
+        mDao = dao;
     }
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mDao.getMembers().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -52,9 +59,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
         }
 
-        public void setUser(User user) {
-            mUserImage.setImageResource(user.getUserImageID());
-            mUserName.setText(user.getUserName());
+        public void setMember(MemberItemDao member) {
+            mUserName.setText(member.getName());
+
+            Glide.with(mContext)
+                    .load(member.getAvatarUrl())
+                    .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                    .into(mUserImage);
         }
     }
 
