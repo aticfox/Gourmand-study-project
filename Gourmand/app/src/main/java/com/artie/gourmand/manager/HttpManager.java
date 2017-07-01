@@ -29,7 +29,7 @@ public class HttpManager {
         mContext = Contextor.getInstance().getContext();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:3000/")
+                .baseUrl("http://gourmand-api.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

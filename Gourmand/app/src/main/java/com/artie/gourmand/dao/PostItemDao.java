@@ -7,8 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
-import java.util.List;
-
 /**
  * Created by ANFIELD on 27/6/2560.
  */
@@ -22,7 +20,6 @@ public class PostItemDao implements Parcelable {
     @SerializedName("liked_count")      private Integer likeCount;
     @SerializedName("created_at")       private Long createTime;
     @SerializedName("location_name")    private String locationName;
-    @SerializedName("comments")         private List<CommentItemDao> comments;
 
     protected PostItemDao(Parcel in) {
         id = in.readInt();
@@ -31,7 +28,6 @@ public class PostItemDao implements Parcelable {
         caption = in.readString();
         likeCount = in.readInt();
         createTime = in.readLong();
-        in.readTypedList(comments, CommentItemDao.CREATOR);
     }
 
     @Override
@@ -42,7 +38,6 @@ public class PostItemDao implements Parcelable {
         dest.writeString(caption);
         dest.writeInt(likeCount);
         dest.writeLong(createTime);
-        dest.writeTypedList(comments);
     }
 
     @Override
@@ -88,10 +83,6 @@ public class PostItemDao implements Parcelable {
 
     public String getLocationName() {
         return locationName;
-    }
-
-    public List<CommentItemDao> getComments() {
-        return comments;
     }
 
 }
