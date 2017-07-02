@@ -1,11 +1,18 @@
 package com.artie.gourmand.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.dao.CommentItemCollectionDao;
+import com.artie.gourmand.dao.CommentItemDao;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by ANFIELD on 9/6/2560.
@@ -13,9 +20,13 @@ import com.artie.gourmand.R;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
+    private Context mContext;
+    private CommentItemCollectionDao mDao;
     private OnItemClickListener mOnItemClickListener;
 
-    public CommentAdapter(OnItemClickListener onItemClickListener) {
+    public CommentAdapter(Context context, CommentItemCollectionDao dao, OnItemClickListener onItemClickListener) {
+        mContext = context;
+        mDao = dao;
         mOnItemClickListener = onItemClickListener;
     }
 
@@ -28,21 +39,33 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setItemClickListener(mOnItemClickListener);
+        holder.setComment(mDao.getComments().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mDao.getComments().size();
+    }
+
+    public void setDao(CommentItemCollectionDao dao) {
+        mDao = dao;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        ImageView mUserImage;
+        TextView mUserName;
+        TextView mComment;
+
         private OnItemClickListener mOnItemClickListener;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            itemView.findViewById(R.id.text_username).setOnClickListener(this);
+            mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
+            mUserName = (TextView) itemView.findViewById(R.id.text_username);
+            mComment = (TextView) itemView.findViewById(R.id.text_comment);
 
+            itemView.findViewById(R.id.text_username).setOnClickListener(this);
         }
 
         public void setItemClickListener(OnItemClickListener onItemClickListener) {
@@ -52,6 +75,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         @Override
         public void onClick(View v) {
             mOnItemClickListener.onItemClick(v, getLayoutPosition());
+        }
+
+        public void setComment(CommentItemDao comment) {
+            mUserName.setText(comment.getMember().getName());
+            mComment.setText(comment.getText());
+
+            Glide.with(mContext)
+                    .load(comment.getMember().getAvatarUrl())
+                    .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                    .into(mUserImage);
         }
     }
 
