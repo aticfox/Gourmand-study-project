@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_user"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="10dp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/text_follower"
+            android:id="@+id/text_comment"
             android:text="โหยน่ากิน"
             android:textSize="17sp"
             android:layout_gravity="center_vertical"

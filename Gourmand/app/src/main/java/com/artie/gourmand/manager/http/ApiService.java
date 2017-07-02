@@ -1,5 +1,6 @@
 package com.artie.gourmand.manager.http;
 
+import com.artie.gourmand.dao.CommentItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.PostItemCollectionDao;
 
@@ -17,5 +18,8 @@ public interface ApiService {
 
     @GET("members.json")
     Call<MemberItemCollectionDao> loadMembers();
+
+    @GET("comments.json")
+    Call<CommentItemCollectionDao> loadComments();
 
 }
