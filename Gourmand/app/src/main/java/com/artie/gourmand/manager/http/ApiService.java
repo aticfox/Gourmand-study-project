@@ -19,7 +19,7 @@ public interface ApiService {
     @GET("members.json")
     Call<MemberItemCollectionDao> loadMembers();
 
-    @GET("comments.json")
+    @GET("posts/1/comments.json")
     Call<CommentItemCollectionDao> loadComments();
 
 }
