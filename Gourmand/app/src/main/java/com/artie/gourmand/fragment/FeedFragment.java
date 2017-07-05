@@ -32,6 +32,7 @@ public class FeedFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     private FeedAdapter mFeedAdapter;
+    private PostItemCollectionDao mDao;
 
     public static FeedFragment newInstance() {
         Bundle args = new Bundle();
@@ -68,8 +69,8 @@ public class FeedFragment extends Fragment {
             @Override
             public void onResponse(Call<PostItemCollectionDao> call, Response<PostItemCollectionDao> response) {
                 if (response.isSuccessful()) {
-                    PostItemCollectionDao dao = response.body();
-                    mFeedAdapter.setDao(dao);
+                    mDao = response.body();
+                    mFeedAdapter.setDao(mDao);
                     mFeedAdapter.notifyDataSetChanged();
                 }
             }
@@ -91,7 +92,9 @@ public class FeedFragment extends Fragment {
                     intent = MapActivity.getStartIntent(getContext());
                     break;
                 case R.id.button_comment:
-                    intent = CommentActivity.getStartIntent(getContext());
+                    intent = CommentActivity.getStartIntent(
+                            getContext(),
+                            mDao.getPosts().get(position).getId());
                     break;
                 default:
                     return;

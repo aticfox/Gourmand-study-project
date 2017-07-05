@@ -6,6 +6,7 @@ import com.artie.gourmand.dao.PostItemCollectionDao;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by ANFIELD on 19/5/2560.
@@ -19,7 +20,7 @@ public interface ApiService {
     @GET("members.json")
     Call<MemberItemCollectionDao> loadMembers();
 
-    @GET("comments.json")
-    Call<CommentItemCollectionDao> loadComments();
+    @GET("posts/{postID}/comments.json")
+    Call<CommentItemCollectionDao> loadComments(@Path("postID") int postID);
 
 }

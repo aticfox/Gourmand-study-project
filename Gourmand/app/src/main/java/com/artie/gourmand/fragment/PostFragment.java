@@ -59,7 +59,8 @@ public class PostFragment extends Fragment {
                     intent = MapActivity.getStartIntent(getContext());
                     break;
                 case R.id.button_comment:
-                    intent = CommentActivity.getStartIntent(getContext());
+                    // TODO: use real post id
+                    intent = CommentActivity.getStartIntent(getContext(), 0);
                     break;
                 default:
                     return;
