@@ -28,17 +28,28 @@ import retrofit2.Response;
 
 public class CommentFragment extends Fragment {
 
+    private static final String ARGUMENT_POST_ID = "postID";
+
     RecyclerView mRecyclerView;
 
+    private int mPostID;
     private CommentAdapter mCommentAdapter;
 
-    public static CommentFragment newInstance() {
+    public static CommentFragment newInstance(int postID) {
         Bundle args = new Bundle();
         CommentFragment fragment = new CommentFragment();
 
+        args.putInt(ARGUMENT_POST_ID, postID);
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mPostID = getArguments().getInt(ARGUMENT_POST_ID);
     }
 
     @Nullable
@@ -61,7 +72,7 @@ public class CommentFragment extends Fragment {
     }
 
     private void setupData() {
-        Call<CommentItemCollectionDao> call = HttpManager.getInstance().getService().loadComments();
+        Call<CommentItemCollectionDao> call = HttpManager.getInstance().getService().loadComments(mPostID);
 
         call.enqueue(new Callback<CommentItemCollectionDao>() {
             @Override
