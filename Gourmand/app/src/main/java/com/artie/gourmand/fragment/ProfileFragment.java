@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
     private void initInstances(View rootView) {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), PHOTO_COLUMN));
-        mRecyclerView.setAdapter(new GridSquarePhotoAdapter(mPostImageIDs, PHOTO_COLUMN, new OnItemClickListener() {
+        mRecyclerView.setAdapter(new GridSquarePhotoAdapter(getContext(), mPostImageIDs, PHOTO_COLUMN, new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = PostActivity.getStartIntent(getContext());

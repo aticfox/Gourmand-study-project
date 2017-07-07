@@ -1,5 +1,6 @@
 package com.artie.gourmand.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.ImageView;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.util.Utils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by ANFIELD on 25/5/2560.
@@ -15,12 +18,15 @@ import com.artie.gourmand.util.Utils;
 
 public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhotoAdapter.ViewHolder> {
 
+    private Context mContext;
+
     private int mColumn;
     private OnItemClickListener mOnItemClickListener;
 
     private int[] mPostImageIDs;
 
-    public GridSquarePhotoAdapter(int[] postImageIDs, int column, OnItemClickListener onItemClickListener) {
+    public GridSquarePhotoAdapter(Context context, int[] postImageIDs, int column, OnItemClickListener onItemClickListener) {
+        mContext = context;
         mOnItemClickListener = onItemClickListener;
         mColumn = column;
         mPostImageIDs = postImageIDs;
@@ -71,7 +77,10 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
         }
 
         public void setPostImageID(int postImageID) {
-            mPostImage.setImageResource(postImageID);
+            Glide.with(mContext)
+                    .load(postImageID)
+                    .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                    .into(mPostImage);
         }
     }
 
