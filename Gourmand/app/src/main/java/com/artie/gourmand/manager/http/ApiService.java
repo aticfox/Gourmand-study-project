@@ -3,6 +3,7 @@ package com.artie.gourmand.manager.http;
 import com.artie.gourmand.dao.CommentItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.PostItemCollectionDao;
+import com.artie.gourmand.dao.ProfileItemDao;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,5 +23,8 @@ public interface ApiService {
 
     @GET("posts/{postID}/comments.json")
     Call<CommentItemCollectionDao> loadComments(@Path("postID") int postID);
+
+    @GET("members/1/profile.json")
+    Call<ProfileItemDao> loadProfile();
 
 }

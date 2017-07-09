@@ -8,12 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.activity.FollowerActivity;
 import com.artie.gourmand.activity.FollowingActivity;
 import com.artie.gourmand.activity.MapActivity;
+import com.artie.gourmand.dao.ProfileItemDao;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by ANFIELD on 1/6/2560.
@@ -21,9 +26,16 @@ import com.artie.gourmand.activity.MapActivity;
 
 public class ProfileHeaderFragment extends Fragment{
 
+    static final String ARGUMENT_DAO = "mDao";
+
     LinearLayout mLinearLayoutFollower;
     LinearLayout mLinearLayoutFollowing;
     Button mButtonToMap;
+    ProfileItemDao mDao;
+    ImageView mImageUser;
+    TextView mTextUsername;
+    TextView mTextFollowerCount;
+    TextView mTextFollowingCount;
 
     public static ProfileHeaderFragment newInstance() {
         Bundle args = new Bundle();
@@ -37,11 +49,7 @@ public class ProfileHeaderFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        init(savedInstanceState);
-    }
-
-    private void init(Bundle savedInstanceState) {
-
+        mDao = getArguments().getParcelable(ARGUMENT_DAO);
     }
 
     @Nullable
@@ -58,6 +66,19 @@ public class ProfileHeaderFragment extends Fragment{
         mLinearLayoutFollower = (LinearLayout) rootView.findViewById(R.id.linear_layout_follower);
         mLinearLayoutFollowing = (LinearLayout) rootView.findViewById(R.id.linear_layout_following);
         mButtonToMap = (Button) rootView.findViewById(R.id.button_to_map);
+        mImageUser = (ImageView) rootView.findViewById(R.id.image_user);
+        mTextUsername = (TextView) rootView.findViewById(R.id.text_username);
+        mTextFollowerCount = (TextView) rootView.findViewById(R.id.text_follower_count);
+        mTextFollowingCount = (TextView) rootView.findViewById(R.id.text_following_count);
+
+        mTextUsername.setText(mDao.getName());
+        mTextFollowerCount.setText(mDao.getFollowerCount().toString());
+        mTextFollowingCount.setText(mDao.getFollowingCount().toString());
+
+        Glide.with(getContext())
+                .load(mDao.getAvatarURL())
+                .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                .into(mImageUser);
 
         mLinearLayoutFollower.setOnClickListener(onClickListener);
         mLinearLayoutFollowing.setOnClickListener(onClickListener);
@@ -90,5 +111,11 @@ public class ProfileHeaderFragment extends Fragment{
         }
 
     };
+
+    public void setDao(ProfileItemDao dao) {
+        mDao = dao;
+
+        getArguments().putParcelable(ARGUMENT_DAO, mDao);
+    }
 
 }
