@@ -37,6 +37,7 @@ public class ProfileFragment extends Fragment {
     RecyclerViewHeader mRecyclerViewHeader;
     ProfileHeaderFragment mProfileHeaderFragment;
     private ProfileItemDao mDao;
+    private GridSquarePhotoAdapter mGridSquarePhotoAdapter;
 
     private int[] mPostImageIDs;
 
@@ -61,40 +62,17 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        setupDummyData();
         initInstances(rootView);
         setupData();
 
         return rootView;
     }
 
-    private void setupDummyData() {
-        mPostImageIDs = new int[]{
-                R.drawable.image_food,
-                R.drawable.image_food2,
-                R.drawable.image_food3,
-                R.drawable.image_food4,
-                R.drawable.image_food5,
-                R.drawable.image_food6,
-                R.drawable.image_food7,
-                R.drawable.image_food8,
-                R.drawable.image_food9,
-                R.drawable.image_food10,
-                R.drawable.image_food11
-        };
-    }
-
     private void initInstances(View rootView) {
+        mGridSquarePhotoAdapter = new GridSquarePhotoAdapter(getContext(), mDao, PHOTO_COLUMN, onItemClickListener);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), PHOTO_COLUMN));
-        mRecyclerView.setAdapter(new GridSquarePhotoAdapter(getContext(), mPostImageIDs, PHOTO_COLUMN, new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = PostActivity.getStartIntent(getContext());
-                startActivity(intent);
-            }
-        }));
-
+        mRecyclerView.setAdapter(mGridSquarePhotoAdapter);
         mRecyclerViewHeader = (RecyclerViewHeader) rootView.findViewById(R.id.recycler_header_view);
         mRecyclerViewHeader.attachTo(mRecyclerView);
 
@@ -116,6 +94,8 @@ public class ProfileFragment extends Fragment {
                 if (response.isSuccessful()) {
                     mDao = response.body();
                     mProfileHeaderFragment.setDao(mDao);
+                    mGridSquarePhotoAdapter.setDao(mDao);
+                    mGridSquarePhotoAdapter.notifyDataSetChanged();
                     getArguments().putParcelable(ARGUMENT_DAO, mDao);
                 }
             }
@@ -126,5 +106,13 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+    OnItemClickListener onItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            Intent intent = PostActivity.getStartIntent(getContext());
+            startActivity(intent);
+        }
+    };
 
 }
