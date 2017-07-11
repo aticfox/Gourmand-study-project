@@ -15,7 +15,7 @@ public class PostItemDao implements Parcelable {
 
     @SerializedName("id")               private Integer id;
     @SerializedName("member")           private MemberItemDao member;
-    @SerializedName("image_url")        private String imageUrl;
+    @SerializedName("image_url")        private String imageURL;
     @SerializedName("caption")          private String caption;
     @SerializedName("liked_count")      private Integer likeCount;
     @SerializedName("created_at")       private Long createTime;
@@ -24,7 +24,7 @@ public class PostItemDao implements Parcelable {
     protected PostItemDao(Parcel in) {
         id = in.readInt();
         member = in.readParcelable(MemberItemDao.class.getClassLoader());
-        imageUrl = in.readString();
+        imageURL = in.readString();
         caption = in.readString();
         likeCount = in.readInt();
         createTime = in.readLong();
@@ -34,7 +34,7 @@ public class PostItemDao implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeParcelable(member, flags);
-        dest.writeString(imageUrl);
+        dest.writeString(imageURL);
         dest.writeString(caption);
         dest.writeInt(likeCount);
         dest.writeLong(createTime);
@@ -65,8 +65,8 @@ public class PostItemDao implements Parcelable {
         return member;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageURL() {
+        return imageURL;
     }
 
     public String getCaption() {

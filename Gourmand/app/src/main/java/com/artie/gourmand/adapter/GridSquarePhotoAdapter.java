@@ -82,7 +82,7 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
 
         public void setPost(PostItemDao post) {
             Glide.with(mContext)
-                    .load(post.getImageUrl())
+                    .load(post.getImageURL())
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
                     .into(mPostImage);
         }
