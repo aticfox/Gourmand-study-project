@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.dao.ProfileItemDao;
+import com.artie.gourmand.dao.ProfilePostItemDao;
 import com.artie.gourmand.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -80,7 +80,7 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
             mOnItemClickListener.onItemClick(v, getLayoutPosition());
         }
 
-        public void setPost(PostItemDao post) {
+        public void setPost(ProfilePostItemDao post) {
             Glide.with(mContext)
                     .load(post.getImageURL())
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))

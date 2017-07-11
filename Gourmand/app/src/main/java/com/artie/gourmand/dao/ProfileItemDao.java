@@ -18,7 +18,7 @@ public class ProfileItemDao implements Parcelable {
     @SerializedName("name")                 private String name;
     @SerializedName("follower_count")       private Integer followerCount;
     @SerializedName("following_count")      private Integer followingCount;
-    @SerializedName("posts")                private List<PostItemDao> posts;
+    @SerializedName("posts")                private List<ProfilePostItemDao> posts;
 
     protected ProfileItemDao(Parcel in) {
         id = in.readInt();
@@ -26,7 +26,7 @@ public class ProfileItemDao implements Parcelable {
         name = in.readString();
         followerCount = in.readInt();
         followingCount = in.readInt();
-        in.readTypedList(posts, PostItemDao.CREATOR);
+        in.readTypedList(posts, ProfilePostItemDao.CREATOR);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ProfileItemDao implements Parcelable {
         return followingCount;
     }
 
-    public List<PostItemDao> getPosts() {
+    public List<ProfilePostItemDao> getPosts() {
         return posts;
     }
     
