@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.dao.PostItemDao;
+import com.artie.gourmand.dao.ProfileItemDao;
 import com.artie.gourmand.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -19,17 +21,15 @@ import com.bumptech.glide.request.RequestOptions;
 public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhotoAdapter.ViewHolder> {
 
     private Context mContext;
-
+    private ProfileItemDao mDao;
     private int mColumn;
     private OnItemClickListener mOnItemClickListener;
 
-    private int[] mPostImageIDs;
-
-    public GridSquarePhotoAdapter(Context context, int[] postImageIDs, int column, OnItemClickListener onItemClickListener) {
+    public GridSquarePhotoAdapter(Context context, ProfileItemDao dao, int column, OnItemClickListener onItemClickListener) {
         mContext = context;
+        mDao = dao;
         mOnItemClickListener = onItemClickListener;
         mColumn = column;
-        mPostImageIDs = postImageIDs;
     }
 
     @Override
@@ -46,12 +46,16 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setItemClickListener(mOnItemClickListener);
-        holder.setPostImageID(mPostImageIDs[position]);
+        holder.setPost(mDao.getPosts().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mPostImageIDs.length;
+        return mDao.getPosts().size();
+    }
+
+    public void setDao(ProfileItemDao dao) {
+        mDao = dao;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -76,9 +80,9 @@ public class GridSquarePhotoAdapter extends RecyclerView.Adapter<GridSquarePhoto
             mOnItemClickListener.onItemClick(v, getLayoutPosition());
         }
 
-        public void setPostImageID(int postImageID) {
+        public void setPost(PostItemDao post) {
             Glide.with(mContext)
-                    .load(postImageID)
+                    .load(post.getImageURL())
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
                     .into(mPostImage);
         }

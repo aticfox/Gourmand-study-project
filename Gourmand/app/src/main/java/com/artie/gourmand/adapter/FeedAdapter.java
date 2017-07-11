@@ -96,7 +96,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
                     .into(mUserImage);
             Glide.with(mContext)
-                    .load(post.getImageUrl())
+                    .load(post.getImageURL())
                     .apply(RequestOptions.placeholderOf(R.drawable.post_placeholder))
                     .into(mPostImage);
         }
