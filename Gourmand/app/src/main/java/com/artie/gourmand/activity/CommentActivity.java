@@ -81,6 +81,7 @@ public class CommentActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     CommentItemCollectionDao dao = response.body();
                     mCommentFragment.setDao(dao);
+                    mCommentFragment.scrollToLastestComment();
                 }
             }
 
