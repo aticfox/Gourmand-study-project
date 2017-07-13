@@ -39,8 +39,6 @@ public class ProfileFragment extends Fragment {
     private ProfileItemDao mDao;
     private GridSquarePhotoAdapter mGridSquarePhotoAdapter;
 
-    private int[] mPostImageIDs;
-
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
         ProfileFragment fragment = new ProfileFragment();

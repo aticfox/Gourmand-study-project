@@ -79,8 +79,7 @@ public class CommentFragment extends Fragment {
             public void onResponse(Call<CommentItemCollectionDao> call, Response<CommentItemCollectionDao> response) {
                 if (response.isSuccessful()) {
                     CommentItemCollectionDao dao = response.body();
-                    mCommentAdapter.setDao(dao);
-                    mCommentAdapter.notifyDataSetChanged();
+                    setDao(dao);
                 }
             }
 
@@ -108,4 +107,9 @@ public class CommentFragment extends Fragment {
         }
     };
 
+    public void setDao(CommentItemCollectionDao dao) {
+        mCommentAdapter.setDao(dao);
+        mCommentAdapter.notifyDataSetChanged();
+    }
+    
 }
