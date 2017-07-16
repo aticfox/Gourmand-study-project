@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -67,6 +68,7 @@ public class CommentActivity extends AppCompatActivity {
                     postComment(mEditTextComment.getText().toString(),
                             mPostID,
                             mMemberID);
+                    hideKeybord();
                     mEditTextComment.setText("");
                     break;
             }
@@ -91,6 +93,14 @@ public class CommentActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void hideKeybord() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }
