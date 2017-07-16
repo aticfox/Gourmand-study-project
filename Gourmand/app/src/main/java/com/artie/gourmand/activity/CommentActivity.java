@@ -67,6 +67,7 @@ public class CommentActivity extends AppCompatActivity {
                     postComment(mEditTextComment.getText().toString(),
                             mPostID,
                             mMemberID);
+                    mEditTextComment.setText("");
                     break;
             }
         }
