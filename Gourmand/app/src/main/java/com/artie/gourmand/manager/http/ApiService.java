@@ -3,6 +3,7 @@ package com.artie.gourmand.manager.http;
 import com.artie.gourmand.dao.CommentItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.PostItemCollectionDao;
+import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.dao.ProfileItemDao;
 
 import retrofit2.Call;
@@ -33,5 +34,13 @@ public interface ApiService {
     Call<CommentItemCollectionDao> addComment(@Path("post_id") int postID,
                                               @Query("text") String text,
                                               @Query("member_id") int memberID);
+
+    @POST("posts.json")
+    Call<PostItemDao> addPost(@Query("member_id") int memberID,
+                              @Query("image_url") String imageURL,
+                              @Query("caption") String caption,
+                              @Query("location_lat") double locationLatitude,
+                              @Query("location_long") double locationLongitude,
+                              @Query("location_name") String locationName);
 
 }
