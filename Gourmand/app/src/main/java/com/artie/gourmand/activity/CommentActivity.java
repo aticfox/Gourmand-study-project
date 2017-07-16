@@ -60,21 +60,6 @@ public class CommentActivity extends AppCompatActivity {
         mButtonPost.setOnClickListener(onClickListener);
     }
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.button_post:
-                    postComment(mEditTextComment.getText().toString(),
-                            mPostID,
-                            mMemberID);
-                    hideKeybord();
-                    mEditTextComment.setText("");
-                    break;
-            }
-        }
-    };
-
     private void postComment(String text, int postID, int memberID) {
         Call<CommentItemCollectionDao> call = HttpManager.getInstance().getService().addComment(postID, text, memberID);
 
@@ -102,5 +87,24 @@ public class CommentActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    private void clearCommentText() {
+        mEditTextComment.setText("");
+    }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.button_post:
+                    postComment(mEditTextComment.getText().toString(),
+                            mPostID,
+                            mMemberID);
+                    hideKeybord();
+                    clearCommentText();
+                    break;
+            }
+        }
+    };
 
 }
