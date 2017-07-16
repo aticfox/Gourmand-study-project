@@ -34,6 +34,7 @@ public class CommentFragment extends Fragment {
 
     private int mPostID;
     private CommentAdapter mCommentAdapter;
+    private CommentItemCollectionDao mDao;
 
     public static CommentFragment newInstance(int postID) {
         Bundle args = new Bundle();
@@ -79,8 +80,7 @@ public class CommentFragment extends Fragment {
             public void onResponse(Call<CommentItemCollectionDao> call, Response<CommentItemCollectionDao> response) {
                 if (response.isSuccessful()) {
                     CommentItemCollectionDao dao = response.body();
-                    mCommentAdapter.setDao(dao);
-                    mCommentAdapter.notifyDataSetChanged();
+                    setDao(dao);
                 }
             }
 
@@ -108,4 +108,15 @@ public class CommentFragment extends Fragment {
         }
     };
 
+    public void setDao(CommentItemCollectionDao dao) {
+        mDao = dao;
+
+        mCommentAdapter.setDao(dao);
+        mCommentAdapter.notifyDataSetChanged();
+    }
+
+    public void scrollToLastestComment() {
+        mRecyclerView.scrollToPosition(mDao.getComments().size()-1);
+    }
+    
 }
