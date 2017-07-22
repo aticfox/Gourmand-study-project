@@ -5,16 +5,24 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.artie.gourmand.R;
 import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.manager.HttpManager;
 import com.artie.gourmand.view.SquareImageView;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,18 +30,18 @@ import retrofit2.Response;
 
 public class CreatePostActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static final String INTENT_EXTRA_IMAGE_URI = "imageURI";
-    static final int MOCK_DATA_MEMBER_ID = 1;
-    static final String MOCK_DATA_IMAGE_URL = "http://img.taste.com.au/q34WYzLy/w720-h480-cfill-q80/taste/2016/11/basic-pancakes-78986-1.jpeg";
-    static final double MOCK_DATA_LOCATION_LATITUDE = 14;
-    static final double MOCK_DATA_LOCATION_LONGITUDE = 17;
-    static final String MOCK_DATA_LOCATION_NAME = "waffer cafee";
+    private static final String INTENT_EXTRA_IMAGE_URI = "imageURI";
+    private static final int MOCK_DATA_MEMBER_ID = 1;
+    private static final String MOCK_DATA_IMAGE_URL = "http://img.taste.com.au/q34WYzLy/w720-h480-cfill-q80/taste/2016/11/basic-pancakes-78986-1.jpeg";
+    private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
+    private static final String TAG = "create post";
 
     TextView mTextViewSelectLocation;
     SquareImageView mSquareImageViewPost;
     EditText mEditTextCaption;
 
     private Uri mImageURI;
+    private Place place;
 
     public static Intent getStartIntent(Context context, Uri imageURI) {
         Intent intent = new Intent(context, CreatePostActivity.class);
@@ -73,9 +81,9 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 createPost(MOCK_DATA_MEMBER_ID,
                         MOCK_DATA_IMAGE_URL,
                         mEditTextCaption.getText().toString(),
-                        MOCK_DATA_LOCATION_LATITUDE,
-                        MOCK_DATA_LOCATION_LONGITUDE,
-                        MOCK_DATA_LOCATION_NAME);
+                        place.getLatLng().latitude,
+                        place.getLatLng().longitude,
+                        place.getName().toString());
                 return true;
             default:
                 break;
@@ -108,23 +116,50 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void onClick(View v) {
-        Intent intent;
-
         switch (v.getId()) {
             case R.id.text_select_location:
-                intent = SelectLocationActivity.getStartIntent(CreatePostActivity.this);
+                presentAutocompleteActivity();
                 break;
             default:
-                return;
+                break;
         }
-
-        startActivity(intent);
     }
 
     private void presentFeedScreen() {
         Intent intent = MainActivity.getStartIntent(CreatePostActivity.this, MainActivity.LAUNCH_SCREEN_FEED);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private void presentAutocompleteActivity() {
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    .build(this);
+            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+        } catch (GooglePlayServicesRepairableException e) {
+            GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(),
+                    0 /* requestCode */).show();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            String message = "Google Play Services is not available: " +
+                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+
+            Log.e(TAG, message);
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_AUTOCOMPLETE) {
+            if (resultCode == RESULT_OK) {
+                place = PlaceAutocomplete.getPlace(this, data);
+                mTextViewSelectLocation.setText(place.getName());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Log.e(TAG, "Error: Status = " + status.toString());
+            }
+        }
     }
 
 }
