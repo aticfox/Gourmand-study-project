@@ -18,6 +18,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBaRysLey_ldfSXMaQzeuNSyQfDp6Q_q3I" />
+        <meta-data
+            android:name="CLOUDINARY_URL"
+            android:value="cloudinary://782623368913494:_TfLmmz8_-sQfbiXjVpEisIbjSM@gourmand" />
 
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.TakePhotoActivity" />

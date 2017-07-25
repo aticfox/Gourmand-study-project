@@ -3,6 +3,7 @@ package com.artie.gourmand.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,10 @@ import com.artie.gourmand.R;
 import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.manager.HttpManager;
 import com.artie.gourmand.view.SquareImageView;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.android.Utils;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -32,7 +37,6 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
     private static final String INTENT_EXTRA_IMAGE_URI = "imageURI";
     private static final int MOCK_DATA_MEMBER_ID = 1;
-    private static final String MOCK_DATA_IMAGE_URL = "http://img.taste.com.au/q34WYzLy/w720-h480-cfill-q80/taste/2016/11/basic-pancakes-78986-1.jpeg";
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     private static final String TAG = "create post";
 
@@ -41,6 +45,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     EditText mEditTextCaption;
 
     private Uri mImageURI;
+    private String mImageURL;
     private Place place;
 
     public static Intent getStartIntent(Context context, Uri imageURI) {
@@ -55,6 +60,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_create_post);
 
         mImageURI = Uri.parse(getIntent().getStringExtra(INTENT_EXTRA_IMAGE_URI));
+        uploadImage(mImageURI);
 
         initInstances();
     }
@@ -79,7 +85,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         switch (item.getItemId()) {
             case R.id.menu_post:
                 createPost(MOCK_DATA_MEMBER_ID,
-                        MOCK_DATA_IMAGE_URL,
+                        mImageURL,
                         mEditTextCaption.getText().toString(),
                         place.getLatLng().latitude,
                         place.getLatLng().longitude,
@@ -90,6 +96,32 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void uploadImage(final Uri imageURI) {
+        final Cloudinary cloudinary = new Cloudinary(Utils.cloudinaryUrlFromContext(getApplicationContext()));
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+                try{
+                    return (String) cloudinary.uploader().upload(getContentResolver().openInputStream(imageURI),  ObjectUtils.asMap("transformation",
+                            new Transformation().width(600).height(600).crop("fill"))).get("url");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String imageURL) {
+                super.onPostExecute(imageURL);
+
+                mImageURL = imageURL;
+            }
+        }.execute();
     }
 
     private void createPost(int memberID,
