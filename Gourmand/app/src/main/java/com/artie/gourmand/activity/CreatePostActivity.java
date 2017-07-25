@@ -46,7 +46,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
     private Uri mImageURI;
     private String mImageURL;
-    private Place place;
+    private Place mPlace;
 
     public static Intent getStartIntent(Context context, Uri imageURI) {
         Intent intent = new Intent(context, CreatePostActivity.class);
@@ -87,9 +87,9 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 createPost(MOCK_DATA_MEMBER_ID,
                         mImageURL,
                         mEditTextCaption.getText().toString(),
-                        place.getLatLng().latitude,
-                        place.getLatLng().longitude,
-                        place.getName().toString());
+                        mPlace.getLatLng().latitude,
+                        mPlace.getLatLng().longitude,
+                        mPlace.getName().toString());
                 return true;
             default:
                 break;
@@ -185,8 +185,8 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_AUTOCOMPLETE) {
             if (resultCode == RESULT_OK) {
-                place = PlaceAutocomplete.getPlace(this, data);
-                mTextViewSelectLocation.setText(place.getName());
+                mPlace = PlaceAutocomplete.getPlace(this, data);
+                mTextViewSelectLocation.setText(mPlace.getName());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 Log.e(TAG, "Error: Status = " + status.toString());
