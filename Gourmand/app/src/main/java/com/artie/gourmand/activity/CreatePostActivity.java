@@ -107,8 +107,13 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
             @Override
             protected String doInBackground(Void... params) {
                 try{
-                    return (String) cloudinary.uploader().upload(getContentResolver().openInputStream(imageURI),  ObjectUtils.asMap("transformation",
-                            new Transformation().width(600).height(600).crop("fill"))).get("url");
+                    return (String) cloudinary.uploader()
+                            .upload(getContentResolver().openInputStream(imageURI),
+                                    ObjectUtils.asMap("transformation",
+                                            new Transformation().width(600)
+                                                    .height(600)
+                                                    .crop("fill")))
+                            .get("url");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -118,8 +123,6 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             protected void onPostExecute(String imageURL) {
-                super.onPostExecute(imageURL);
-
                 mImageURL = imageURL;
             }
         }.execute();
