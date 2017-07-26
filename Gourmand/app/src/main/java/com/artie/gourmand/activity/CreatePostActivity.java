@@ -26,6 +26,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
@@ -165,7 +166,11 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
     private void presentAutocompleteActivity() {
         try {
+            AutocompleteFilter filter = new AutocompleteFilter.Builder()
+                    .setCountry("TH")
+                    .build();
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    .setFilter(filter)
                     .build(this);
             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
         } catch (GooglePlayServicesRepairableException e) {
