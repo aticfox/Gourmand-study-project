@@ -61,6 +61,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         TextView mCaption;
         TextView mCreateTime;
         TextView mLocationName;
+        TextView mLikeCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,6 +72,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mCaption = (TextView) itemView.findViewById(R.id.caption);
             mCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
             mLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
+            mLikeCount = (TextView) itemView.findViewById(R.id.text_like_count);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
             itemView.findViewById(R.id.button_comment).setOnClickListener(this);
@@ -90,6 +92,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mCaption.setText(post.getCaption());
             mLocationName.setText(post.getLocationName());
             mCreateTime.setText(post.getCreateTimeText());
+            mLikeCount.setText("Liked "+post.getLikeCount().toString());
 
             Glide.with(mContext)
                     .load(post.getMember().getAvatarUrl())

@@ -63,6 +63,7 @@
         android:text="Yummy food" />
 
     <TextView
+        android:id="@+id/text_like_count"
         android:layout_marginLeft="10dp"
         android:text="liked 10"
         android:layout_width="wrap_content"
