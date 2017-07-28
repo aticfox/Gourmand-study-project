@@ -55,24 +55,24 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private OnItemClickListener mOnItemClickListener;
 
-        ImageView mUserImage;
-        ImageView mPostImage;
-        TextView mUserName;
-        TextView mCaption;
-        TextView mCreateTime;
-        TextView mLocationName;
-        TextView mLikeCount;
+        ImageView mImageUser;
+        ImageView mImagePost;
+        TextView mTextUserName;
+        TextView mTextCaption;
+        TextView mTextCreateTime;
+        TextView mTextLocationName;
+        TextView mTextLikeCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
-            mPostImage = (ImageView) itemView.findViewById(R.id.image_post);
-            mUserName = (TextView) itemView.findViewById(R.id.text_username);
-            mCaption = (TextView) itemView.findViewById(R.id.caption);
-            mCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
-            mLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
-            mLikeCount = (TextView) itemView.findViewById(R.id.text_like_count);
+            mImageUser = (ImageView) itemView.findViewById(R.id.image_user);
+            mImagePost = (ImageView) itemView.findViewById(R.id.image_post);
+            mTextUserName = (TextView) itemView.findViewById(R.id.text_username);
+            mTextCaption = (TextView) itemView.findViewById(R.id.caption);
+            mTextCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
+            mTextLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
+            mTextLikeCount = (TextView) itemView.findViewById(R.id.text_like_count);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
             itemView.findViewById(R.id.button_comment).setOnClickListener(this);
@@ -88,20 +88,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         }
 
         public void setPost(PostItemDao post) {
-            mUserName.setText(post.getMember().getName());
-            mCaption.setText(post.getCaption());
-            mLocationName.setText(post.getLocationName());
-            mCreateTime.setText(post.getCreateTimeText());
-            mLikeCount.setText("Liked "+post.getLikeCount().toString());
+            mTextUserName.setText(post.getMember().getName());
+            mTextCaption.setText(post.getCaption());
+            mTextLocationName.setText(post.getLocationName());
+            mTextCreateTime.setText(post.getCreateTimeText());
+            mTextLikeCount.setText("Liked " + post.getLikeCount().toString());
 
             Glide.with(mContext)
                     .load(post.getMember().getAvatarUrl())
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
-                    .into(mUserImage);
+                    .into(mImageUser);
             Glide.with(mContext)
                     .load(post.getImageURL())
                     .apply(RequestOptions.placeholderOf(R.drawable.post_placeholder))
-                    .into(mPostImage);
+                    .into(mImagePost);
         }
     }
 
