@@ -27,6 +27,9 @@ public interface ApiService {
     @GET("posts/{post_id}/comments.json")
     Call<CommentItemCollectionDao> loadComments(@Path("post_id") int postID);
 
+    @GET("posts/{post_id}.json")
+    Call<PostItemDao> loadPost(@Path("post_id") int postID);
+
     @GET("members/1/profile.json")
     Call<ProfileItemDao> loadProfile();
 

@@ -69,7 +69,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mImageUser = (ImageView) itemView.findViewById(R.id.image_user);
             mImagePost = (ImageView) itemView.findViewById(R.id.image_post);
             mTextUserName = (TextView) itemView.findViewById(R.id.text_username);
-            mTextCaption = (TextView) itemView.findViewById(R.id.caption);
+            mTextCaption = (TextView) itemView.findViewById(R.id.text_caption);
             mTextCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
             mTextLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
             mTextLikeCount = (TextView) itemView.findViewById(R.id.text_like_count);

@@ -15,6 +15,7 @@
             android:layout_margin="10dp" >
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_user"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/image_profile_mock"
@@ -29,6 +30,7 @@
                 android:gravity="center_vertical" >
 
                 <TextView
+                    android:id="@+id/text_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Aticfox"
@@ -43,6 +45,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/text_create_time"
                 android:text="12.00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -58,10 +61,17 @@
 
         <TextView
             android:layout_margin="10dp"
-            android:id="@+id/caption"
+            android:id="@+id/text_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yummy food" />
+
+        <TextView
+            android:id="@+id/text_like_count"
+            android:layout_marginLeft="10dp"
+            android:text="liked 10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

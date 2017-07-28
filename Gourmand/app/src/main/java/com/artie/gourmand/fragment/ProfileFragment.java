@@ -108,7 +108,7 @@ public class ProfileFragment extends Fragment {
     OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            Intent intent = PostActivity.getStartIntent(getContext());
+            Intent intent = PostActivity.getStartIntent(getContext(), mDao.getPosts().get(position).getId());
             startActivity(intent);
         }
     };
