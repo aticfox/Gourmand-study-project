@@ -1,5 +1,6 @@
 package com.artie.gourmand.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.artie.gourmand.dao.MemberItemCollectionDao;
+import com.artie.gourmand.dao.MemberItemDao;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by ANFIELD on 2/6/2560.
@@ -20,10 +21,12 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    private List<User> mUsers = new ArrayList<>();
+    private Context mContext;
+    private MemberItemCollectionDao mDao;
 
-    public UserAdapter(List<User> users) {
-        mUsers = users;
+    public UserAdapter(Context context, MemberItemCollectionDao dao) {
+        mContext = context;
+        mDao = dao;
     }
 
     @Override
@@ -34,12 +37,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setUser(mUsers.get(position));
+        holder.setUser(mDao.getMembers().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mDao.getMembers().size();
+    }
+
+    public void setDao(MemberItemCollectionDao dao) {
+        mDao = dao;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,10 +62,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             mFollowButton = (Button) itemView.findViewById(R.id.button_follow);
         }
 
-        public void setUser(User user) {
-            mUserImage.setImageResource(user.getUserImageID());
-            mUserName.setText(user.getUserName());
-            mFollowButton.setText(followButtonTitle(user.isFollowing()));
+        public void setUser(MemberItemDao user) {
+            Glide.with(mContext)
+                    .load(user.getAvatarUrl())
+                    .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                    .into(mUserImage);
+            mUserName.setText(user.getName());
+            mFollowButton.setText(followButtonTitle(true));
         }
 
         private String followButtonTitle(Boolean isFollowing) {
