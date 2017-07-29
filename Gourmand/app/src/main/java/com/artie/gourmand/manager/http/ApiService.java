@@ -34,10 +34,10 @@ public interface ApiService {
     Call<ProfileItemDao> loadProfile();
 
     @GET("members/{member_id}/followers.json")
-    Call<MemberItemCollectionDao> loadFollower(@Path("member_id") int memberID);
+    Call<MemberItemCollectionDao> loadFollowers(@Path("member_id") int memberID);
 
     @GET("members/{member_id}/followings.json")
-    Call<MemberItemCollectionDao> loadFollowing(@Path("member_id") int memberID);
+    Call<MemberItemCollectionDao> loadFollowings(@Path("member_id") int memberID);
 
     @POST("posts/{post_id}/comments.json")
     Call<CommentItemCollectionDao> addComment(@Path("post_id") int postID,

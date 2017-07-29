@@ -40,7 +40,7 @@ public class FollowerActivity extends AppCompatActivity {
     }
 
     private void setupData() {
-        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadFollower(MOCK_MEMBER_ID);
+        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadFollowers(MOCK_MEMBER_ID);
 
         call.enqueue(new Callback<MemberItemCollectionDao>() {
             @Override
