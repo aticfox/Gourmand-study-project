@@ -31,11 +31,12 @@ public class ProfileHeaderFragment extends Fragment{
     LinearLayout mLinearLayoutFollower;
     LinearLayout mLinearLayoutFollowing;
     Button mButtonToMap;
-    ProfileItemDao mDao;
     ImageView mImageUser;
     TextView mTextUsername;
     TextView mTextFollowerCount;
     TextView mTextFollowingCount;
+
+    private ProfileItemDao mDao;
 
     public static ProfileHeaderFragment newInstance() {
         Bundle args = new Bundle();
@@ -100,9 +101,7 @@ public class ProfileHeaderFragment extends Fragment{
                     intent = FollowingActivity.getStartIntent(getContext());
                     break;
                 case R.id.button_to_map:
-                    // TODO: use real data
-                    intent = MapActivity.getStartIntent(getContext(), 0, 0, " ");
-                    startActivity(intent);
+                    intent = MapActivity.getStartIntent(getContext(), mDao.getPosts());
                     break;
                 default:
                     return;
