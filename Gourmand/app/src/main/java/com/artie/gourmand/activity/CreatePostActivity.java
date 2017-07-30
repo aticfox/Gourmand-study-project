@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -85,6 +86,10 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_post:
+                if (isIncompleteForm()) {
+                    showDialog("ข้อมูลไม่ครบ", "กรุณาเลือกสถานที่");
+                    return false;
+                }
                 createPost(MOCK_DATA_MEMBER_ID,
                         mImageURL,
                         mEditTextCaption.getText().toString(),
@@ -97,6 +102,10 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isIncompleteForm() {
+        return mPlace == null;
     }
 
     private void uploadImage(final Uri imageURI) {
@@ -126,6 +135,14 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 mImageURL = imageURL;
             }
         }.execute();
+    }
+
+    private void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(message).setTitle(title);
+
+        builder.show();
     }
 
     private void createPost(int memberID,
