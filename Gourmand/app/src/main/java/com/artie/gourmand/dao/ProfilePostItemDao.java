@@ -13,16 +13,22 @@ public class ProfilePostItemDao implements Parcelable {
 
     @SerializedName("id")               private Integer id;
     @SerializedName("image_url")        private String imageURL;
+    @SerializedName("location_lat")     private double latitude;
+    @SerializedName("location_long")    private double longitude;
 
     protected ProfilePostItemDao(Parcel in) {
         id = in.readInt();
         imageURL = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(imageURL);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 
     @Override
@@ -48,6 +54,18 @@ public class ProfilePostItemDao implements Parcelable {
 
     public String getImageURL() {
         return imageURL;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public String getLocationName() {
+        return "Central Location";
     }
 
 }
