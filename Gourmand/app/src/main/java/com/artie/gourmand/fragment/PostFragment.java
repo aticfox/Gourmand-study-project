@@ -111,7 +111,10 @@ public class PostFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.text_location_name:
-                    intent = MapActivity.getStartIntent(getContext());
+                    intent = MapActivity.getStartIntent(getContext(),
+                            mDao.getLatitude(),
+                            mDao.getLongitude(),
+                            mDao.getLocationName());
                     break;
                 case R.id.button_comment:
                     // TODO: use real post id

@@ -20,6 +20,8 @@ public class PostItemDao implements Parcelable {
     @SerializedName("liked_count")      private Integer likeCount;
     @SerializedName("created_at")       private Long createTime;
     @SerializedName("location_name")    private String locationName;
+    @SerializedName("location_lat")     private double latitude;
+    @SerializedName("location_long")    private double longitude;
 
     protected PostItemDao(Parcel in) {
         id = in.readInt();
@@ -28,6 +30,9 @@ public class PostItemDao implements Parcelable {
         caption = in.readString();
         likeCount = in.readInt();
         createTime = in.readLong();
+        locationName = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
     }
 
     @Override
@@ -38,6 +43,9 @@ public class PostItemDao implements Parcelable {
         dest.writeString(caption);
         dest.writeInt(likeCount);
         dest.writeLong(createTime);
+        dest.writeString(locationName);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 
     @Override
@@ -83,6 +91,14 @@ public class PostItemDao implements Parcelable {
 
     public String getLocationName() {
         return locationName;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
 }
