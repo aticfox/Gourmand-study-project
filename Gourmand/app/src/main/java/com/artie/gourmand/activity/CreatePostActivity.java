@@ -138,7 +138,6 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void showDialog(String title, String message) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage(message).setTitle(title);
