@@ -17,6 +17,7 @@ import com.artie.gourmand.activity.MapActivity;
 import com.artie.gourmand.adapter.FeedAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
 import com.artie.gourmand.dao.PostItemCollectionDao;
+import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.manager.HttpManager;
 
 import retrofit2.Call;
@@ -86,10 +87,14 @@ public class FeedFragment extends Fragment {
         @Override
         public void onItemClick(View view, int position) {
             Intent intent;
+            PostItemDao post = mDao.getPosts().get(position);
 
             switch (view.getId()) {
                 case R.id.text_location_name:
-                    intent = MapActivity.getStartIntent(getContext());
+                    intent = MapActivity.getStartIntent(getContext(),
+                            post.getLatitude(),
+                            post.getLongitude(),
+                            post.getLocationName());
                     break;
                 case R.id.button_comment:
                     intent = CommentActivity.getStartIntent(

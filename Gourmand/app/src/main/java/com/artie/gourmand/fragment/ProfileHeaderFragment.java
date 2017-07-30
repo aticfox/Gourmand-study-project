@@ -100,7 +100,8 @@ public class ProfileHeaderFragment extends Fragment{
                     intent = FollowingActivity.getStartIntent(getContext());
                     break;
                 case R.id.button_to_map:
-                    intent = MapActivity.getStartIntent(getContext());
+                    // TODO: use real data
+                    intent = MapActivity.getStartIntent(getContext(), 0, 0, " ");
                     startActivity(intent);
                     break;
                 default:

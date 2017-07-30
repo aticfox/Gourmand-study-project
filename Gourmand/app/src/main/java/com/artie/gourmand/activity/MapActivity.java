@@ -15,10 +15,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    private GoogleMap mMap;
+    private static String INTENT_EXTRA_LATITUDE = "latitude";
+    private static String INTENT_EXTRA_LONGITUDE = "longitude";
+    private static String INTENT_EXTRA_LOCATION_NAME = "locationName";
 
-    public static Intent getStartIntent(Context context) {
+    private GoogleMap mMap;
+    private LatLng mLocation;
+    private String mLocationeName;
+
+    public static Intent getStartIntent(Context context, double latitude, double longitude, String locationName) {
         Intent intent = new Intent(context, MapActivity.class);
+        intent.putExtra(INTENT_EXTRA_LATITUDE, latitude);
+        intent.putExtra(INTENT_EXTRA_LONGITUDE, longitude);
+        intent.putExtra(INTENT_EXTRA_LOCATION_NAME, locationName);
         return intent;
     }
 
@@ -26,6 +35,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        Intent intent = getIntent();
+        mLocation = new LatLng(intent.getDoubleExtra(INTENT_EXTRA_LATITUDE, 0),
+                intent.getDoubleExtra(INTENT_EXTRA_LONGITUDE, 0));
+        mLocationeName = intent.getStringExtra(INTENT_EXTRA_LOCATION_NAME);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -35,9 +49,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng westgate = new LatLng(13.87738, 100.41214);
-        mMap.addMarker(new MarkerOptions().position(westgate).title("Marker at Central Westgate"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(westgate));
+        mMap.addMarker(new MarkerOptions().position(mLocation).title(mLocationeName));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation , 14.0f));
     }
 
 }
