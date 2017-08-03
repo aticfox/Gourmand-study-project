@@ -18,33 +18,33 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    @GET("posts.json")
+    @GET("posts.json?member_id=1")
     Call<PostItemCollectionDao> loadPosts();
 
-    @GET("members.json")
+    @GET("members.json?member_id=1")
     Call<MemberItemCollectionDao> loadMembers();
 
-    @GET("posts/{post_id}/comments.json")
+    @GET("posts/{post_id}/comments.json?member_id=1")
     Call<CommentItemCollectionDao> loadComments(@Path("post_id") int postID);
 
-    @GET("posts/{post_id}.json")
+    @GET("posts/{post_id}.json?member_id=1")
     Call<PostItemDao> loadPost(@Path("post_id") int postID);
 
-    @GET("members/1/profile.json")
+    @GET("members/1/profile.json?member_id=1")
     Call<ProfileItemDao> loadProfile();
 
-    @GET("members/{member_id}/followers.json")
+    @GET("members/{member_id}/followers.json?member_id=1")
     Call<MemberItemCollectionDao> loadFollowers(@Path("member_id") int memberID);
 
-    @GET("members/{member_id}/followings.json")
+    @GET("members/{member_id}/followings.json?member_id=1")
     Call<MemberItemCollectionDao> loadFollowings(@Path("member_id") int memberID);
 
-    @POST("posts/{post_id}/comments.json")
+    @POST("posts/{post_id}/comments.json?member_id=1")
     Call<CommentItemCollectionDao> addComment(@Path("post_id") int postID,
                                               @Query("text") String text,
                                               @Query("member_id") int memberID);
 
-    @POST("posts.json")
+    @POST("posts.json?member_id=1")
     Call<PostItemDao> addPost(@Query("member_id") int memberID,
                               @Query("image_url") String imageURL,
                               @Query("caption") String caption,
