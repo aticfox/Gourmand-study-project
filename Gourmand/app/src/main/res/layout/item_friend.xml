@@ -11,11 +11,12 @@
         android:layout_margin="10dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_profile_mock" />
+        android:src="@drawable/avatar_placeholder" />
 
     <TextView
         android:id="@+id/text_username"
-        android:text="@string/following"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="18sp"
         android:layout_marginLeft="10dp"
         android:textColor="@android:color/black"

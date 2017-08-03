@@ -9,9 +9,10 @@
         android:id="@+id/image_user"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_margin="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_profile_mock" />
+        android:layout_margin="10dp"
+        android:layout_gravity="top"
+        android:src="@drawable/avatar_placeholder" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,7 +22,8 @@
 
         <TextView
             android:id="@+id/text_username"
-            android:text="@string/aticfox"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="20sp"
             android:layout_marginBottom="5dp"
             android:textColor="@android:color/black"
@@ -30,10 +32,8 @@
 
         <TextView
             android:id="@+id/text_comment"
-            android:text="โหยน่ากิน"
             android:textSize="17sp"
             android:layout_gravity="center_vertical"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
