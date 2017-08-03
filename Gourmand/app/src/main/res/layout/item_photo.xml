@@ -7,7 +7,7 @@
         android:id="@+id/image_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/image_post_mock"
+        android:src="@drawable/post_placeholder"
         android:scaleType="centerCrop" />
 
     <View

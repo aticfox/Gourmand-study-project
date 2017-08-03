@@ -14,7 +14,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="18dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_post_mock" />
+        android:src="@drawable/post_placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
