@@ -20,6 +20,10 @@ public class MemberItemCollectionDao implements Parcelable {
         members = new ArrayList<>();
     }
 
+    public MemberItemCollectionDao(List<MemberItemDao> members) {
+        this.members = members;
+    }
+
     protected MemberItemCollectionDao(Parcel in) {
         members = in.createTypedArrayList(MemberItemDao.CREATOR);
     }
