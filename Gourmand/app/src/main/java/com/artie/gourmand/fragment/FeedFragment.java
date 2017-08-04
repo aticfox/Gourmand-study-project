@@ -19,6 +19,7 @@ import com.artie.gourmand.adapter.OnItemClickListener;
 import com.artie.gourmand.dao.PostItemCollectionDao;
 import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +65,9 @@ public class FeedFragment extends Fragment {
     }
 
     private void setupData(Bundle savedInstanceState) {
-        Call<PostItemCollectionDao> call = HttpManager.getInstance().getService().loadPosts();
+        Call<PostItemCollectionDao> call = HttpManager.getInstance()
+                .getService()
+                .loadPosts(User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<PostItemCollectionDao>() {
             @Override

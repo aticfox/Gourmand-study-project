@@ -13,6 +13,7 @@ import com.artie.gourmand.R;
 import com.artie.gourmand.adapter.UserAdapter;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,10 +21,9 @@ import retrofit2.Response;
 
 public class FollowerActivity extends AppCompatActivity {
 
-    private static int MOCK_MEMBER_ID = 1;
-
     RecyclerView mRecyclerViewFollower;
     private UserAdapter mUserAdapter;
+    private int mFollowerMemberID = User.getInstance().getDao().getId();
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, FollowerActivity.class);
@@ -40,7 +40,7 @@ public class FollowerActivity extends AppCompatActivity {
     }
 
     private void setupData() {
-        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadFollowers(MOCK_MEMBER_ID);
+        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadFollowers(mFollowerMemberID, User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<MemberItemCollectionDao>() {
             @Override

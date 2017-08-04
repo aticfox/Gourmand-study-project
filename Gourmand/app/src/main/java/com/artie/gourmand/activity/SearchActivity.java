@@ -17,6 +17,7 @@ import com.artie.gourmand.adapter.SearchAdapter;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupData() {
-        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadMembers();
+        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadMembers(User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<MemberItemCollectionDao>() {
             @Override
