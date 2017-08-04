@@ -17,6 +17,7 @@ import com.artie.gourmand.adapter.CommentAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
 import com.artie.gourmand.dao.CommentItemCollectionDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +74,7 @@ public class CommentFragment extends Fragment {
     }
 
     private void setupData() {
-        Call<CommentItemCollectionDao> call = HttpManager.getInstance().getService().loadComments(mPostID);
+        Call<CommentItemCollectionDao> call = HttpManager.getInstance().getService().loadComments(mPostID, User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<CommentItemCollectionDao>() {
             @Override

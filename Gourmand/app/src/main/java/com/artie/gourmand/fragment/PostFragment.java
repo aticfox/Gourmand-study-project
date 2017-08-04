@@ -17,6 +17,7 @@ import com.artie.gourmand.activity.CommentActivity;
 import com.artie.gourmand.activity.MapActivity;
 import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -86,7 +87,7 @@ public class PostFragment extends Fragment {
     }
 
     private void setupData() {
-        Call<PostItemDao> call = HttpManager.getInstance().getService().loadPost(mPostID);
+        Call<PostItemDao> call = HttpManager.getInstance().getService().loadPost(mPostID, User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<PostItemDao>() {
             @Override

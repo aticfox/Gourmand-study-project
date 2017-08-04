@@ -13,6 +13,7 @@ import com.artie.gourmand.R;
 import com.artie.gourmand.dao.CommentItemCollectionDao;
 import com.artie.gourmand.fragment.CommentFragment;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +27,7 @@ public class CommentActivity extends AppCompatActivity {
     Button mButtonPost;
 
     private int mPostID;
-    private int mMemberID = 1;
+    private int mMemberID = User.getInstance().getDao().getId();
     private CommentFragment mCommentFragment;
 
     public static Intent getStartIntent(Context context, int postID) {

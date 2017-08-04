@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.artie.gourmand.R;
 import com.artie.gourmand.dao.PostItemDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 import com.artie.gourmand.view.SquareImageView;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
@@ -38,7 +39,6 @@ import retrofit2.Response;
 public class CreatePostActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String INTENT_EXTRA_IMAGE_URI = "imageURI";
-    private static final int MOCK_DATA_MEMBER_ID = 1;
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     private static final String TAG = "create post";
 
@@ -90,8 +90,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                     showDialog("ข้อมูลไม่ครบ", "กรุณาเลือกสถานที่");
                     return false;
                 }
-                createPost(MOCK_DATA_MEMBER_ID,
-                        mImageURL,
+                createPost(mImageURL,
                         mEditTextCaption.getText().toString(),
                         mPlace.getLatLng().latitude,
                         mPlace.getLatLng().longitude,
@@ -145,15 +144,14 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         builder.show();
     }
 
-    private void createPost(int memberID,
-                            String imageURL,
+    private void createPost(String imageURL,
                             String caption,
                             double locationLatitude,
                             double locationLongitude,
                             String locationName) {
         Call<PostItemDao> call = HttpManager.getInstance()
                 .getService()
-                .addPost(memberID, imageURL, caption, locationLatitude, locationLongitude, locationName);
+                .addPost(User.getInstance().getDao().getId(), imageURL, caption, locationLatitude, locationLongitude, locationName);
 
         call.enqueue(new Callback<PostItemDao>() {
             @Override

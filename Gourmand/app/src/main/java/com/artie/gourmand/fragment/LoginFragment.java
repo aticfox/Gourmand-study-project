@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.activity.ForgotPasswordActivity;
 import com.artie.gourmand.activity.MainActivity;
 import com.artie.gourmand.activity.RegisterActivity;
+import com.artie.gourmand.dao.MemberItemDao;
+import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by ANFIELD on 6/6/2560.
@@ -24,6 +32,8 @@ public class LoginFragment extends Fragment {
     Button mButtonLogin;
     TextView mTextRegister;
     TextView mTextForgotPassword;
+    EditText mEditTextEmail;
+    EditText mEditTextPassword;
 
     public static LoginFragment newInstance() {
         Bundle args = new Bundle();
@@ -53,31 +63,53 @@ public class LoginFragment extends Fragment {
 
         mTextForgotPassword = (TextView) rootView.findViewById(R.id.text_forgot_password);
         mTextForgotPassword.setOnClickListener(onClickListener);
+
+        mEditTextEmail = (EditText) rootView.findViewById(R.id.edit_text_email);
+        mEditTextPassword = (EditText) rootView.findViewById(R.id.edit_text_password);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            Intent intent;
-
             switch (v.getId()) {
                 case R.id.button_login:
-                    intent = MainActivity.getStartIntent(getContext(), MainActivity.LAUNCH_SCREEN_FEED);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    login(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString());
                     break;
                 case R.id.text_register:
-                    intent = RegisterActivity.getStartIntent(getContext());
-                    break;
-                case R.id.text_forgot_password:
-                    intent = ForgotPasswordActivity.getStartIntent(getContext());
+                    presentRegisterScreen();
                     break;
                 default:
                     return;
             }
-
-            startActivity(intent);
         }
     };
+
+    private void presentRegisterScreen() {
+        Intent intent = RegisterActivity.getStartIntent(getContext());
+        startActivity(intent);
+    }
+
+    private void login(String email, String password) {
+        Call<MemberItemDao> call = HttpManager.getInstance().getService().login(email, password);
+        call.enqueue(new Callback<MemberItemDao>() {
+            @Override
+            public void onResponse(Call<MemberItemDao> call, Response<MemberItemDao> response) {
+                if (response.isSuccessful()) {
+                    MemberItemDao dao = response.body();
+                    User.getInstance().setDao(dao);
+
+                    Intent intent = MainActivity.getStartIntent(getContext(), MainActivity.LAUNCH_SCREEN_FEED);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MemberItemDao> call, Throwable t) {
+                Log.d("Comment", "Fail load data: " + t.toString());
+            }
+        });
+    }
 
 }

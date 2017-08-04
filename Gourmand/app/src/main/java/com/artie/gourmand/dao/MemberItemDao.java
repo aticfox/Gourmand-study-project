@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class MemberItemDao implements Parcelable {
 
-    @SerializedName("id")               private Integer id;
+    @SerializedName("id")               private int id;
     @SerializedName("avatar_url")       private String avatarUrl;
     @SerializedName("name")             private String name;
 
@@ -45,7 +45,7 @@ public class MemberItemDao implements Parcelable {
         }
     };
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

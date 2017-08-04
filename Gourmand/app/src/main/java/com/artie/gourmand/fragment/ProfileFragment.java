@@ -17,6 +17,7 @@ import com.artie.gourmand.adapter.GridSquarePhotoAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
 import com.artie.gourmand.dao.ProfileItemDao;
 import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 
 import retrofit2.Call;
@@ -38,6 +39,7 @@ public class ProfileFragment extends Fragment {
     ProfileHeaderFragment mProfileHeaderFragment;
     private ProfileItemDao mDao;
     private GridSquarePhotoAdapter mGridSquarePhotoAdapter;
+    private int mProfileMemberID = User.getInstance().getDao().getId();
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -84,7 +86,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupData() {
-        Call<ProfileItemDao> call = HttpManager.getInstance().getService().loadProfile();
+        Call<ProfileItemDao> call = HttpManager.getInstance().getService().loadProfile(mProfileMemberID, User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<ProfileItemDao>() {
             @Override
