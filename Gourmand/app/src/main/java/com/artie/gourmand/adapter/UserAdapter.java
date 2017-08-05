@@ -49,7 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         mDao = dao;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView mUserImage;
         TextView mUserName;
         Button mFollowButton;
@@ -60,6 +60,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
             mFollowButton = (Button) itemView.findViewById(R.id.button_follow);
+            mFollowButton.setOnClickListener(this);
         }
 
         public void setUser(MemberItemDao user) {
@@ -68,11 +69,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
                     .into(mUserImage);
             mUserName.setText(user.getName());
-            mFollowButton.setText(followButtonTitle(true));
+            mFollowButton.setText(followButtonTitle(user.isFollowing()));
         }
 
         private String followButtonTitle(Boolean isFollowing) {
             return isFollowing ? "Following" : "Follow";
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 

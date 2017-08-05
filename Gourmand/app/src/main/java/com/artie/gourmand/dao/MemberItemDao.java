@@ -14,11 +14,13 @@ public class MemberItemDao implements Parcelable {
     @SerializedName("id")               private int id;
     @SerializedName("avatar_url")       private String avatarUrl;
     @SerializedName("name")             private String name;
+    @SerializedName("is_following")     private boolean isFollowing;
 
     protected MemberItemDao(Parcel in) {
         id = in.readInt();
         avatarUrl = in.readString();
         name = in.readString();
+        isFollowing = (in.readInt() == 1)? true : false;
     }
 
     @Override
@@ -26,6 +28,7 @@ public class MemberItemDao implements Parcelable {
         dest.writeInt(id);
         dest.writeString(avatarUrl);
         dest.writeString(name);
+        dest.writeInt(isFollowing? 1 : 0);
     }
 
     @Override
@@ -57,4 +60,7 @@ public class MemberItemDao implements Parcelable {
         return name;
     }
 
+    public boolean isFollowing() {
+        return isFollowing;
+    }
 }
