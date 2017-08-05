@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,6 +63,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
         TextView mTextCreateTime;
         TextView mTextLocationName;
         TextView mTextLikeCount;
+        Button mButtonLike;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +75,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mTextCreateTime = (TextView) itemView.findViewById(R.id.text_create_time);
             mTextLocationName = (TextView) itemView.findViewById(R.id.text_location_name);
             mTextLikeCount = (TextView) itemView.findViewById(R.id.text_like_count);
+            mButtonLike = (Button) itemView.findViewById(R.id.button_like);
+            mButtonLike.setOnClickListener(this);
 
             itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
             itemView.findViewById(R.id.button_comment).setOnClickListener(this);
@@ -93,6 +97,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mTextLocationName.setText(post.getLocationName());
             mTextCreateTime.setText(post.getCreateTimeText());
             mTextLikeCount.setText("Liked " + post.getLikeCount().toString());
+            if (post.isLike()) {
+                mButtonLike.setBackgroundResource(R.drawable.btn_like_select);
+            } else {
+                mButtonLike.setBackgroundResource(R.drawable.btn_like_normal);
+            }
 
             Glide.with(mContext)
                     .load(post.getMember().getAvatarUrl())
