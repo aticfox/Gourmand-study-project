@@ -31,7 +31,6 @@ public class LoginFragment extends Fragment {
 
     Button mButtonLogin;
     TextView mTextRegister;
-    TextView mTextForgotPassword;
     EditText mEditTextEmail;
     EditText mEditTextPassword;
 
@@ -60,9 +59,6 @@ public class LoginFragment extends Fragment {
 
         mTextRegister = (TextView) rootView.findViewById(R.id.text_register);
         mTextRegister.setOnClickListener(onClickListener);
-
-        mTextForgotPassword = (TextView) rootView.findViewById(R.id.text_forgot_password);
-        mTextForgotPassword.setOnClickListener(onClickListener);
 
         mEditTextEmail = (EditText) rootView.findViewById(R.id.edit_text_email);
         mEditTextPassword = (EditText) rootView.findViewById(R.id.edit_text_password);
