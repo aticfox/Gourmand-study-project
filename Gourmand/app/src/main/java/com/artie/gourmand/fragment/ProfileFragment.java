@@ -93,10 +93,7 @@ public class ProfileFragment extends Fragment {
             public void onResponse(Call<ProfileItemDao> call, Response<ProfileItemDao> response) {
                 if (response.isSuccessful()) {
                     mDao = response.body();
-                    mProfileHeaderFragment.setDao(mDao);
-                    mGridSquarePhotoAdapter.setDao(mDao);
-                    mGridSquarePhotoAdapter.notifyDataSetChanged();
-                    getArguments().putParcelable(ARGUMENT_DAO, mDao);
+                    updateView();
                 }
             }
 
@@ -114,5 +111,17 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         }
     };
+
+    public void setDao(ProfileItemDao dao) {
+        mDao = dao;
+        updateView();
+    }
+
+    private void updateView() {
+        mProfileHeaderFragment.setDao(mDao);
+        mGridSquarePhotoAdapter.setDao(mDao);
+        mGridSquarePhotoAdapter.notifyDataSetChanged();
+        getArguments().putParcelable(ARGUMENT_DAO, mDao);
+    }
 
 }

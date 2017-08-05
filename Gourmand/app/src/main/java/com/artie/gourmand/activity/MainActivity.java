@@ -6,12 +6,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.dao.ProfileItemDao;
 import com.artie.gourmand.fragment.FeedFragment;
 import com.artie.gourmand.fragment.ProfileFragment;
+import com.artie.gourmand.manager.HttpManager;
+import com.artie.gourmand.model.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int LAUNCH_SCREEN_PROFILE = 1;
 
     private int mLaunchScreen;
+    private ProfileFragment mProfileFragment;
 
     public static Intent getStartIntent(Context context, int launchScreen) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -45,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadUserProfileData();
+    }
+
     private void bindData() {
         mLaunchScreen = getIntent().getIntExtra(EXTRA_KEY_LAUNCH_SCREEN, LAUNCH_SCREEN_FEED);
     }
@@ -58,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindFragment() {
-        ProfileFragment profileFragment = ProfileFragment.newInstance();
+        mProfileFragment = ProfileFragment.newInstance();
         FeedFragment feedFragment = FeedFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction()
@@ -66,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         feedFragment,
                         FRAGMENT_FEED)
                 .add(R.id.content_container,
-                        profileFragment,
+                        mProfileFragment,
                         FRAGMENT_PROFILE)
                 .commit();
 
@@ -76,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 detachFragment = feedFragment;
                 break;
             default:
-                detachFragment = profileFragment;
+                detachFragment = mProfileFragment;
                 break;
         }
 
@@ -124,6 +139,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadUserProfileData() {
+        int userID = User.getInstance().getDao().getId();
+
+        Call<ProfileItemDao> call = HttpManager.getInstance()
+                .getService()
+                .loadProfile(userID, userID);
+
+        call.enqueue(new Callback<ProfileItemDao>() {
+            @Override
+            public void onResponse(Call<ProfileItemDao> call, Response<ProfileItemDao> response) {
+                if (response.isSuccessful()) {
+                    ProfileItemDao dao = response.body();
+                    mProfileFragment.setDao(dao);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileItemDao> call, Throwable t) {
+                Log.d("Comment", "Fail load data: " + t.toString());
+            }
+        });
     }
 
 }

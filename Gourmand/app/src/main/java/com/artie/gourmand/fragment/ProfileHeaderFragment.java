@@ -87,7 +87,6 @@ public class ProfileHeaderFragment extends Fragment{
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
-        Intent intent;
 
         @Override
         public void onClick(View v) {
@@ -116,6 +115,23 @@ public class ProfileHeaderFragment extends Fragment{
         mDao = dao;
 
         getArguments().putParcelable(ARGUMENT_DAO, mDao);
+        if (isLoadViewComplete() && mDao != null) {
+            updateView();
+        }
     }
 
+    private void updateView() {
+        mTextUsername.setText(mDao.getName());
+        mTextFollowerCount.setText(mDao.getFollowerCount().toString());
+        mTextFollowingCount.setText(mDao.getFollowingCount().toString());
+
+        Glide.with(getContext())
+                .load(mDao.getAvatarURL())
+                .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                .into(mImageUser);
+    }
+
+    public boolean isLoadViewComplete() {
+        return mTextUsername != null;
+    }
 }
