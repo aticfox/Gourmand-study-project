@@ -62,4 +62,12 @@ public interface ApiService {
     Call<MemberItemDao> login(@Query("email") String email,
                               @Query("password") String password);
 
+    @POST("posts/{post_id}/like.json")
+    Call<PostItemDao> like(@Path("post_id") int postID,
+                           @Query("member_id") int memberID);
+
+    @POST("posts/{post_id}/unlike.json")
+    Call<PostItemDao> unlike(@Path("post_id") int postID,
+                           @Query("member_id") int memberID);
+
 }

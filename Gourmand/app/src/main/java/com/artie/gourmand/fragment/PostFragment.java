@@ -41,6 +41,7 @@ public class PostFragment extends Fragment {
     TextView mTextCaption;
     TextView mTextLikeCount;
     Button mButtonComment;
+    Button mButtonLike;
 
     private PostItemDao mDao;
     private int mPostID;
@@ -84,6 +85,8 @@ public class PostFragment extends Fragment {
         mButtonComment.setOnClickListener(onClickListener);
         mTextLocationName = (TextView) rootView.findViewById(R.id.text_location_name);
         mTextLocationName.setOnClickListener(onClickListener);
+        mButtonLike = (Button) rootView.findViewById(R.id.button_like);
+        mButtonLike.setOnClickListener(onClickListener);
     }
 
     private void setupData() {
@@ -108,24 +111,23 @@ public class PostFragment extends Fragment {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent;
-
             switch (v.getId()) {
                 case R.id.text_location_name:
-                    intent = MapActivity.getStartIntent(getContext(),
-                            mDao.getLatitude(),
-                            mDao.getLongitude(),
-                            mDao.getLocationName());
+                    presentMapScreen(mDao);
                     break;
                 case R.id.button_comment:
-                    // TODO: use real post id
-                    intent = CommentActivity.getStartIntent(getContext(), 0);
+                    presentCommentScreen(mDao.getId());
+                    break;
+                case R.id.button_like:
+                    if (mDao.isLike()) {
+                        unlike(mDao.getId());
+                    } else {
+                        like(mDao.getId());
+                    }
                     break;
                 default:
                     return;
             }
-
-            startActivity(intent);
         }
     };
 
@@ -141,6 +143,11 @@ public class PostFragment extends Fragment {
         mTextCaption.setText(mDao.getCaption());
         mTextLikeCount.setText("Liked " + mDao.getLikeCount().toString());
         mTextLocationName.setText(mDao.getLocationName());
+        if (mDao.isLike()) {
+            mButtonLike.setBackgroundResource(R.drawable.btn_like_select);
+        } else {
+            mButtonLike.setBackgroundResource(R.drawable.btn_like_normal);
+        }
 
         Glide.with(getContext())
                 .load(mDao.getMember().getAvatarUrl())
@@ -150,6 +157,57 @@ public class PostFragment extends Fragment {
                 .load(mDao.getImageURL())
                 .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
                 .into(mImagePost);
+    }
+
+    private void presentMapScreen(PostItemDao post) {
+        Intent intent = MapActivity.getStartIntent(getContext(),
+                post.getLatitude(),
+                post.getLongitude(),
+                post.getLocationName());
+        startActivity(intent);
+    }
+
+    private void presentCommentScreen(int postID) {
+        Intent intent = CommentActivity.getStartIntent(
+                getContext(),
+                postID);
+        startActivity(intent);
+    }
+
+    private void like(int postID) {
+        Call<PostItemDao> call = HttpManager.getInstance()
+                .getService()
+                .like(postID, User.getInstance().getDao().getId());
+        call.enqueue(new Callback<PostItemDao>() {
+            @Override
+            public void onResponse(Call<PostItemDao> call, Response<PostItemDao> response) {
+                mDao = response.body();
+                updateView();
+            }
+
+            @Override
+            public void onFailure(Call<PostItemDao> call, Throwable t) {
+                Log.d("Feed", "Fail : " + t.toString());
+            }
+        });
+    }
+
+    private void unlike(int postID) {
+        Call<PostItemDao> call = HttpManager.getInstance()
+                .getService()
+                .unlike(postID, User.getInstance().getDao().getId());
+        call.enqueue(new Callback<PostItemDao>() {
+            @Override
+            public void onResponse(Call<PostItemDao> call, Response<PostItemDao> response) {
+                mDao = response.body();
+                updateView();
+            }
+
+            @Override
+            public void onFailure(Call<PostItemDao> call, Throwable t) {
+                Log.d("Feed", "Fail : " + t.toString());
+            }
+        });
     }
 
 }

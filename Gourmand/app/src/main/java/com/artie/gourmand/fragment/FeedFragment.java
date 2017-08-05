@@ -86,30 +86,101 @@ public class FeedFragment extends Fragment {
         });
     }
 
+    private void like(int postID) {
+        Call<PostItemDao> call = HttpManager.getInstance()
+                .getService()
+                .like(postID, User.getInstance().getDao().getId());
+        call.enqueue(new Callback<PostItemDao>() {
+            @Override
+            public void onResponse(Call<PostItemDao> call, Response<PostItemDao> response) {
+                PostItemDao dao = response.body();
+
+                for (int i=0; i<mDao.getPosts().size(); i++) {
+                    PostItemDao post = mDao.getPosts().get(i);
+                    if (post.getId() == dao.getId()) {
+                        mDao.getPosts().remove(i);
+                        mDao.getPosts().add(i, dao);
+                    }
+                }
+
+                mFeedAdapter.setDao(mDao);
+                mFeedAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<PostItemDao> call, Throwable t) {
+                Log.d("Feed", "Fail : " + t.toString());
+            }
+        });
+    }
+
+    private void unlike(int postID) {
+        Call<PostItemDao> call = HttpManager.getInstance()
+                .getService()
+                .unlike(postID, User.getInstance().getDao().getId());
+        call.enqueue(new Callback<PostItemDao>() {
+            @Override
+            public void onResponse(Call<PostItemDao> call, Response<PostItemDao> response) {
+                PostItemDao dao = response.body();
+
+                for (int i=0; i<mDao.getPosts().size(); i++) {
+                    PostItemDao post = mDao.getPosts().get(i);
+                    if (post.getId() == dao.getId()) {
+                        mDao.getPosts().remove(i);
+                        mDao.getPosts().add(i, dao);
+                    }
+                }
+
+                mFeedAdapter.setDao(mDao);
+                mFeedAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<PostItemDao> call, Throwable t) {
+                Log.d("Feed", "Fail : " + t.toString());
+            }
+        });
+    }
+
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            Intent intent;
             PostItemDao post = mDao.getPosts().get(position);
 
             switch (view.getId()) {
                 case R.id.text_location_name:
-                    intent = MapActivity.getStartIntent(getContext(),
-                            post.getLatitude(),
-                            post.getLongitude(),
-                            post.getLocationName());
+                    presentMapScreen(post);
                     break;
                 case R.id.button_comment:
-                    intent = CommentActivity.getStartIntent(
-                            getContext(),
-                            mDao.getPosts().get(position).getId());
+                    presentCommentScreen(post.getId());
+
+                    break;
+                case R.id.button_like:
+                    if (post.isLike()) {
+                        unlike(post.getId());
+                    } else {
+                        like(post.getId());
+                    }
                     break;
                 default:
                     return;
             }
-
-            startActivity(intent);
         }
     };
+
+    private void presentMapScreen(PostItemDao post) {
+        Intent intent = MapActivity.getStartIntent(getContext(),
+                post.getLatitude(),
+                post.getLongitude(),
+                post.getLocationName());
+        startActivity(intent);
+    }
+
+    private void presentCommentScreen(int postID) {
+        Intent intent = CommentActivity.getStartIntent(
+                getContext(),
+                postID);
+        startActivity(intent);
+    }
 
 }

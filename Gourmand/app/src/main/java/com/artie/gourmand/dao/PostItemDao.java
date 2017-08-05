@@ -18,6 +18,7 @@ public class PostItemDao implements Parcelable {
     @SerializedName("image_url")        private String imageURL;
     @SerializedName("caption")          private String caption;
     @SerializedName("liked_count")      private Integer likeCount;
+    @SerializedName("is_liked")         private boolean isLike;
     @SerializedName("created_at")       private Long createTime;
     @SerializedName("location_name")    private String locationName;
     @SerializedName("location_lat")     private double latitude;
@@ -29,6 +30,7 @@ public class PostItemDao implements Parcelable {
         imageURL = in.readString();
         caption = in.readString();
         likeCount = in.readInt();
+        isLike = (in.readInt() == 1)? true : false;
         createTime = in.readLong();
         locationName = in.readString();
         latitude = in.readDouble();
@@ -42,6 +44,7 @@ public class PostItemDao implements Parcelable {
         dest.writeString(imageURL);
         dest.writeString(caption);
         dest.writeInt(likeCount);
+        dest.writeInt(isLike? 1 : 0);
         dest.writeLong(createTime);
         dest.writeString(locationName);
         dest.writeDouble(latitude);
@@ -99,6 +102,10 @@ public class PostItemDao implements Parcelable {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public boolean isLike() {
+        return isLike;
     }
 
 }
