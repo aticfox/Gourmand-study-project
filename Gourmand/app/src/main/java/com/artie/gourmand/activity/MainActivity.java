@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void bindData() {
         mLaunchScreen = getIntent().getIntExtra(EXTRA_KEY_LAUNCH_SCREEN, LAUNCH_SCREEN_FEED);
     }

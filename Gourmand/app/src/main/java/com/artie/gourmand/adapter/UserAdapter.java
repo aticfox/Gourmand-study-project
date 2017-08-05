@@ -82,7 +82,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
 
         private String followButtonTitle(Boolean isFollowing) {
-            return isFollowing ? "Following" : "Follow";
+            return isFollowing ? "Unfollow" : "Follow";
         }
 
         @Override
