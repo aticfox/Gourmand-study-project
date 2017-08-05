@@ -63,4 +63,9 @@ public class MemberItemDao implements Parcelable {
     public boolean isFollowing() {
         return isFollowing;
     }
+
+    public void setFollowing(boolean following) {
+        isFollowing = following;
+    }
+
 }

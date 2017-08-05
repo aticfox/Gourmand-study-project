@@ -76,4 +76,12 @@ public interface ApiService {
     Call<PostItemDao> unlike(@Path("post_id") int postID,
                              @Query("member_id") int memberID);
 
+    @POST("members/{user_id}/follow.json")
+    Call<Void> follow(@Path("user_id") int userID,
+                      @Query("member_id") int memberID);
+
+    @POST("members/{user_id}/unfollow.json")
+    Call<Void> unfollow(@Path("user_id") int userID,
+                        @Query("member_id") int memberID);
+
 }
