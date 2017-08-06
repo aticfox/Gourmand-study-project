@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 public class FeedFragment extends Fragment {
 
     RecyclerView mRecyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private FeedAdapter mFeedAdapter;
     private PostItemCollectionDao mDao;
@@ -52,7 +54,7 @@ public class FeedFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         initInstances(rootView);
-        setupData(savedInstanceState);
+        setupData();
 
         return rootView;
     }
@@ -63,9 +65,12 @@ public class FeedFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mFeedAdapter);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(pullToRefreshListener);
     }
 
-    private void setupData(Bundle savedInstanceState) {
+    private void setupData() {
         Call<PostItemCollectionDao> call = HttpManager.getInstance()
                 .getService()
                 .loadPosts(User.getInstance().getDao().getId());
@@ -73,6 +78,7 @@ public class FeedFragment extends Fragment {
         call.enqueue(new Callback<PostItemCollectionDao>() {
             @Override
             public void onResponse(Call<PostItemCollectionDao> call, Response<PostItemCollectionDao> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
                     mDao = response.body();
                     mFeedAdapter.setDao(mDao);
@@ -82,6 +88,7 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onFailure(Call<PostItemCollectionDao> call, Throwable t) {
+                mSwipeRefreshLayout.setRefreshing(false);
                 Log.d("Feed", "Fail load data: " + t.toString());
             }
         });
@@ -191,6 +198,17 @@ public class FeedFragment extends Fragment {
                 getContext(),
                 postID);
         startActivity(intent);
+    }
+
+    SwipeRefreshLayout.OnRefreshListener pullToRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            refreshData();
+        }
+    };
+
+    private void refreshData() {
+        setupData();
     }
 
 }
