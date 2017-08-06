@@ -136,6 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 intent = TakePhotoActivity.getStartIntent(MainActivity.this);
                 startActivity(intent);
                 break;
+            case R.id.menu_logout:
+                intent = LoginActivity.getStartIntent(MainActivity.this);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
