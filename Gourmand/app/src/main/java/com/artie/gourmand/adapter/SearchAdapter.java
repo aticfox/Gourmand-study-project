@@ -1,6 +1,7 @@
 package com.artie.gourmand.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.ProfileActivity;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemDao;
 import com.bumptech.glide.Glide;
@@ -48,7 +50,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return mDao.getMembers().size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mUserImage;
         TextView mUserName;
 
@@ -57,6 +59,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
             mUserImage = (ImageView) itemView.findViewById(R.id.image_user);
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
+
+            mUserImage.setOnClickListener(this);
+            mUserName.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.image_user:
+                case R.id.text_username:
+                    presentProfileScreen(mDao.getMembers().get(getLayoutPosition()).getId());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void presentProfileScreen(int memberID) {
+            Intent intent = ProfileActivity.getStartIntent(mContext, memberID);
+            mContext.startActivity(intent);
         }
 
         public void setMember(MemberItemDao member) {
