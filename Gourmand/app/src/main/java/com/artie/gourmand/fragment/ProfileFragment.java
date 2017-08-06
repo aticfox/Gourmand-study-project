@@ -97,7 +97,7 @@ public class ProfileFragment extends Fragment {
 
     private void updateView() {
         // Hot fix crash when present profile screen from post
-        for (long i = 0; i<15000000; i++) {}
+        for (long i = 0; i<12000000; i++) {}
 
         if (isLoadViewComplete() && mDao != null) {
             mProfileHeaderFragment.setDao(mDao);
