@@ -23,10 +23,11 @@ public class FollowerActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerViewFollower;
     private UserAdapter mUserAdapter;
-    private int mFollowerMemberID = User.getInstance().getDao().getId();
+    private int mMemberID;
 
-    public static Intent getStartIntent(Context context) {
+    public static Intent getStartIntent(Context context, int memberID) {
         Intent intent = new Intent(context, FollowerActivity.class);
+        intent.putExtra("member_id", memberID);
         return intent;
     }
 
@@ -35,12 +36,14 @@ public class FollowerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follower);
 
+        mMemberID = getIntent().getIntExtra("member_id", 0);
+
         initInstances();
         setupData();
     }
 
     private void setupData() {
-        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadFollowers(mFollowerMemberID, User.getInstance().getDao().getId());
+        Call<MemberItemCollectionDao> call = HttpManager.getInstance().getService().loadFollowers(mMemberID, User.getInstance().getDao().getId());
 
         call.enqueue(new Callback<MemberItemCollectionDao>() {
             @Override

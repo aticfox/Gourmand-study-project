@@ -87,10 +87,10 @@ public class ProfileHeaderFragment extends Fragment{
 
             switch (v.getId()) {
                 case R.id.linear_layout_follower:
-                    intent = FollowerActivity.getStartIntent(getContext());
+                    intent = FollowerActivity.getStartIntent(getContext(), mDao.getId());
                     break;
                 case R.id.linear_layout_following:
-                    intent = FollowingActivity.getStartIntent(getContext());
+                    intent = FollowingActivity.getStartIntent(getContext(), mDao.getId());
                     break;
                 case R.id.button_to_map:
                     intent = MapActivity.getStartIntent(getContext(), mDao.getPosts());
