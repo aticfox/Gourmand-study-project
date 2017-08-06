@@ -72,18 +72,11 @@ public class ProfileHeaderFragment extends Fragment{
         mTextFollowerCount = (TextView) rootView.findViewById(R.id.text_follower_count);
         mTextFollowingCount = (TextView) rootView.findViewById(R.id.text_following_count);
 
-        mTextUsername.setText(mDao.getName());
-        mTextFollowerCount.setText(mDao.getFollowerCount().toString());
-        mTextFollowingCount.setText(mDao.getFollowingCount().toString());
-
-        Glide.with(getContext())
-                .load(mDao.getAvatarURL())
-                .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
-                .into(mImageUser);
-
         mLinearLayoutFollower.setOnClickListener(onClickListener);
         mLinearLayoutFollowing.setOnClickListener(onClickListener);
         mButtonToMap.setOnClickListener(onClickListener);
+
+        updateView();
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -115,20 +108,21 @@ public class ProfileHeaderFragment extends Fragment{
         mDao = dao;
 
         getArguments().putParcelable(ARGUMENT_DAO, mDao);
-        if (isLoadViewComplete() && mDao != null) {
-            updateView();
-        }
+        updateView();
     }
 
     private void updateView() {
-        mTextUsername.setText(mDao.getName());
-        mTextFollowerCount.setText(mDao.getFollowerCount().toString());
-        mTextFollowingCount.setText(mDao.getFollowingCount().toString());
+        if (isLoadViewComplete() && mDao != null) {
+            mTextUsername.setText(mDao.getName());
+            mTextFollowerCount.setText(mDao.getFollowerCount().toString());
+            mTextFollowingCount.setText(mDao.getFollowingCount().toString());
 
-        Glide.with(getContext())
-                .load(mDao.getAvatarURL())
-                .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
-                .into(mImageUser);
+            Glide.with(getContext())
+                    .load(mDao.getAvatarURL())
+                    .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
+                    .into(mImageUser);
+
+        }
     }
 
     public boolean isLoadViewComplete() {

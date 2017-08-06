@@ -78,7 +78,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>  {
             mButtonLike = (Button) itemView.findViewById(R.id.button_like);
             mButtonLike.setOnClickListener(this);
 
-            itemView.findViewById(R.id.text_location_name).setOnClickListener(this);
+            mImageUser.setOnClickListener(this);
+            mTextUserName.setOnClickListener(this);
+            mTextLocationName.setOnClickListener(this);
             itemView.findViewById(R.id.button_comment).setOnClickListener(this);
         }
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.artie.gourmand.R;
 import com.artie.gourmand.activity.CommentActivity;
 import com.artie.gourmand.activity.MapActivity;
+import com.artie.gourmand.activity.ProfileActivity;
 import com.artie.gourmand.adapter.FeedAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
 import com.artie.gourmand.dao.PostItemCollectionDao;
@@ -148,6 +149,10 @@ public class FeedFragment extends Fragment {
             PostItemDao post = mDao.getPosts().get(position);
 
             switch (view.getId()) {
+                case R.id.image_user:
+                case R.id.text_username:
+                    presentProfileScreen();
+                    break;
                 case R.id.text_location_name:
                     presentMapScreen(post);
                     break;
@@ -167,6 +172,11 @@ public class FeedFragment extends Fragment {
             }
         }
     };
+
+    private void presentProfileScreen() {
+        Intent intent = ProfileActivity.getStartIntent(getContext());
+        startActivity(intent);
+    }
 
     private void presentMapScreen(PostItemDao post) {
         Intent intent = MapActivity.getStartIntent(getContext(),

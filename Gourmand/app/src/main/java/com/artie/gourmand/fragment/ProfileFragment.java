@@ -55,6 +55,16 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mDao = getArguments().getParcelable(ARGUMENT_DAO);
+        if(savedInstanceState == null) {
+            mProfileHeaderFragment = ProfileHeaderFragment.newInstance();
+            mProfileHeaderFragment.setDao(mDao);
+            
+            getChildFragmentManager().beginTransaction()
+                    .add(R.id.content_container_header,
+                            mProfileHeaderFragment,
+                            FRAGMENT_PROFILE_HEADER)
+                    .commit();
+        }
     }
 
     @Nullable
@@ -76,13 +86,7 @@ public class ProfileFragment extends Fragment {
         mRecyclerViewHeader = (RecyclerViewHeader) rootView.findViewById(R.id.recycler_header_view);
         mRecyclerViewHeader.attachTo(mRecyclerView);
 
-        mProfileHeaderFragment = ProfileHeaderFragment.newInstance();
-        mProfileHeaderFragment.setDao(mDao);
-        getChildFragmentManager().beginTransaction()
-                .add(R.id.content_container_header,
-                        mProfileHeaderFragment,
-                        FRAGMENT_PROFILE_HEADER)
-                .commit();
+        updateView();
     }
 
     private void setupData() {
@@ -118,10 +122,19 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateView() {
-        mProfileHeaderFragment.setDao(mDao);
-        mGridSquarePhotoAdapter.setDao(mDao);
-        mGridSquarePhotoAdapter.notifyDataSetChanged();
-        getArguments().putParcelable(ARGUMENT_DAO, mDao);
+        // Hot fix crash when present profile screen from post
+        for (long i = 0; i<9999999; i++) {}
+
+        if (isLoadViewComplete() && mDao != null) {
+            mProfileHeaderFragment.setDao(mDao);
+            mGridSquarePhotoAdapter.setDao(mDao);
+            mGridSquarePhotoAdapter.notifyDataSetChanged();
+            getArguments().putParcelable(ARGUMENT_DAO, mDao);
+        }
+    }
+
+    public boolean isLoadViewComplete() {
+        return mRecyclerView != null;
     }
 
 }
