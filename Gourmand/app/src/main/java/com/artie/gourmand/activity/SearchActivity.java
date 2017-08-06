@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.artie.gourmand.R;
-import com.artie.gourmand.adapter.SearchAdapter;
+import com.artie.gourmand.adapter.UserAdapter;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemDao;
 import com.artie.gourmand.manager.HttpManager;
@@ -32,7 +32,8 @@ public class SearchActivity extends AppCompatActivity {
     EditText mEditTextSearch;
 
     private MemberItemCollectionDao mDao;
-    private SearchAdapter mSearchAdapter;
+//    private SearchAdapter mSearchAdapter;
+    private UserAdapter mUserAdapter;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -90,15 +91,16 @@ public class SearchActivity extends AppCompatActivity {
                 } else {
                     dao = filter(mDao, s.toString());
                 }
-                mSearchAdapter.setDao(dao);
-                mSearchAdapter.notifyDataSetChanged();
+                mUserAdapter.setDao(dao);
+                mUserAdapter.notifyDataSetChanged();
             }
         });
-        mSearchAdapter = new SearchAdapter(SearchActivity.this, new MemberItemCollectionDao());
+//        mSearchAdapter = new SearchAdapter(SearchActivity.this, new MemberItemCollectionDao());
+        mUserAdapter = new UserAdapter(SearchActivity.this, new MemberItemCollectionDao());
 
         mRecyclerViewFriend = (RecyclerView) findViewById(R.id.recycler_view_select_friend);
         mRecyclerViewFriend.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerViewFriend.setAdapter(mSearchAdapter);
+        mRecyclerViewFriend.setAdapter(mUserAdapter);
     }
 
     private MemberItemCollectionDao filter(MemberItemCollectionDao mDao, String keyword) {
