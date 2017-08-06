@@ -1,6 +1,7 @@
 package com.artie.gourmand.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.ProfileActivity;
 import com.artie.gourmand.dao.CommentItemCollectionDao;
 import com.artie.gourmand.dao.CommentItemDao;
 import com.bumptech.glide.Glide;
@@ -65,6 +67,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
             mComment = (TextView) itemView.findViewById(R.id.text_comment);
 
+            mUserImage.setOnClickListener(this);
+            mUserName.setOnClickListener(this);
             itemView.findViewById(R.id.text_username).setOnClickListener(this);
         }
 
@@ -74,7 +78,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.onItemClick(v, getLayoutPosition());
+            switch (v.getId()) {
+                case R.id.image_user:
+                case R.id.text_username:
+                    presentProfileScreen(mDao.getComments().get(getLayoutPosition()).getMember().getId());
+                    break;
+                default:
+                    mOnItemClickListener.onItemClick(v, getLayoutPosition());
+                    break;
+            }
         }
 
         public void setComment(CommentItemDao comment) {
@@ -85,6 +97,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     .load(comment.getMember().getAvatarUrl())
                     .apply(RequestOptions.placeholderOf(R.drawable.avatar_placeholder))
                     .into(mUserImage);
+        }
+
+        private void presentProfileScreen(int memberID) {
+            Intent intent = ProfileActivity.getStartIntent(mContext, memberID);
+            mContext.startActivity(intent);
         }
     }
 
