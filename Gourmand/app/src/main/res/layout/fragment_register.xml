@@ -42,7 +42,8 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:text="Password must more than 6 characters"
+        android:text="Password must be more than 6 character."
+        android:textSize="12sp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
