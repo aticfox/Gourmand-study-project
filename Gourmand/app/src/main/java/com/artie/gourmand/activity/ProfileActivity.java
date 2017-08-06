@@ -19,9 +19,13 @@ import retrofit2.Response;
 public class ProfileActivity extends AppCompatActivity {
 
     ProfileFragment mFragment;
+    private int mMemberID;
 
-    public static Intent getStartIntent(Context context) {
+    public static Intent getStartIntent(Context context, int memberID) {
         Intent intent = new Intent(context, ProfileActivity.class);
+
+        intent.putExtra("member_id", memberID);
+
         return intent;
     }
 
@@ -29,6 +33,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        mMemberID = getIntent().getIntExtra("member_id", 0);
 
         if(savedInstanceState == null) {
             mFragment = ProfileFragment.newInstance();
@@ -44,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Call<ProfileItemDao> call = HttpManager.getInstance()
                 .getService()
-                .loadProfile(userID, userID);
+                .loadProfile(mMemberID, userID);
 
         call.enqueue(new Callback<ProfileItemDao>() {
             @Override

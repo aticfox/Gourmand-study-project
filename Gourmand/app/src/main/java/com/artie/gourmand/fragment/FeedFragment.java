@@ -151,7 +151,7 @@ public class FeedFragment extends Fragment {
             switch (view.getId()) {
                 case R.id.image_user:
                 case R.id.text_username:
-                    presentProfileScreen();
+                    presentProfileScreen(post.getMember().getId());
                     break;
                 case R.id.text_location_name:
                     presentMapScreen(post);
@@ -173,8 +173,8 @@ public class FeedFragment extends Fragment {
         }
     };
 
-    private void presentProfileScreen() {
-        Intent intent = ProfileActivity.getStartIntent(getContext());
+    private void presentProfileScreen(int memberID) {
+        Intent intent = ProfileActivity.getStartIntent(getContext(), memberID);
         startActivity(intent);
     }
 

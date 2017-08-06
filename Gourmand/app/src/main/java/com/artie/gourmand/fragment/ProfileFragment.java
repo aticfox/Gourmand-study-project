@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,8 @@ import com.artie.gourmand.activity.PostActivity;
 import com.artie.gourmand.adapter.GridSquarePhotoAdapter;
 import com.artie.gourmand.adapter.OnItemClickListener;
 import com.artie.gourmand.dao.ProfileItemDao;
-import com.artie.gourmand.manager.HttpManager;
 import com.artie.gourmand.model.User;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by ANFIELD on 23/5/2560.
@@ -73,7 +67,6 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         initInstances(rootView);
-        setupData();
 
         return rootView;
     }
@@ -87,25 +80,6 @@ public class ProfileFragment extends Fragment {
         mRecyclerViewHeader.attachTo(mRecyclerView);
 
         updateView();
-    }
-
-    private void setupData() {
-        Call<ProfileItemDao> call = HttpManager.getInstance().getService().loadProfile(mProfileMemberID, User.getInstance().getDao().getId());
-
-        call.enqueue(new Callback<ProfileItemDao>() {
-            @Override
-            public void onResponse(Call<ProfileItemDao> call, Response<ProfileItemDao> response) {
-                if (response.isSuccessful()) {
-                    mDao = response.body();
-                    updateView();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProfileItemDao> call, Throwable t) {
-                Log.d("Comment", "Fail load data: " + t.toString());
-            }
-        });
     }
 
     OnItemClickListener onItemClickListener = new OnItemClickListener() {
