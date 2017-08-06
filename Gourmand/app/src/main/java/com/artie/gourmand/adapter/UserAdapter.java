@@ -1,6 +1,7 @@
 package com.artie.gourmand.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artie.gourmand.R;
+import com.artie.gourmand.activity.ProfileActivity;
 import com.artie.gourmand.dao.MemberItemCollectionDao;
 import com.artie.gourmand.dao.MemberItemDao;
 import com.artie.gourmand.manager.HttpManager;
@@ -70,6 +72,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             mUserName = (TextView) itemView.findViewById(R.id.text_username);
             mFollowButton = (Button) itemView.findViewById(R.id.button_follow);
             mFollowButton.setOnClickListener(this);
+            mUserImage.setOnClickListener(this);
+            mUserName.setOnClickListener(this);
         }
 
         public void setUser(MemberItemDao user) {
@@ -98,9 +102,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     }
                     isLoadingFollowing = true;
                     break;
+                case R.id.image_user:
+                case R.id.text_username:
+                    presentProfileScreen(member.getId());
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void presentProfileScreen(int memberID) {
+            Intent intent = ProfileActivity.getStartIntent(mContext, memberID);
+            mContext.startActivity(intent);
         }
 
         private void unfollow(final MemberItemDao member) {
